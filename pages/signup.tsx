@@ -1,5 +1,6 @@
 import TextField from '@material-ui/core/TextField';
 import styled from "styled-components";
+import { AuthForm, FormControl } from "../shared/styles/forms";
 
 const Center = styled.div`
     align-items: center;
@@ -8,18 +9,6 @@ const Center = styled.div`
     height: calc(100vh - 200px);
     justify-content: center;
     width: 100%;
-`;
-
-const FormControl = styled.div`
-    margin: 15px 0px;
-`;
-
-const AuthForm = styled.form`
-    width: 80%;
-
-    @media screen and (min-width: 800px) {
-        max-width: 350px;
-    }
 `;
 
 const Button = styled.button`

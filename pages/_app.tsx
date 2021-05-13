@@ -5,6 +5,13 @@ import { ThemeProvider } from "styled-components"
 import { GlobalStyle, theme } from '../shared/theme';
 
 import NavBar from "../components/NavBar";
+import styled from "styled-components";
+
+const Content = styled.div`
+    height: 100vh;
+    width: calc(100% - 300px);
+    float: right;
+`;
 
 export default function MyApp({ Component, pageProps }) {
     return (
@@ -15,8 +22,9 @@ export default function MyApp({ Component, pageProps }) {
             </Head>
             <main>
                 <NavBar />
-                <h1>EasyMealPlanner</h1>
-                <Component {...pageProps} />
+                <Content>
+                    <Component {...pageProps} />
+                </Content>
             </main>
         </ThemeProvider>
     );

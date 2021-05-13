@@ -1,9 +1,10 @@
 import { createGlobalStyle, ThemeProps } from 'styled-components';
+import { normalize } from 'styled-normalize'
 
 export const theme = {
     fonts: {
-      basic: "Helvetica, sans-serif",
-      accent: '"Permanent Marker", cursive'
+      default: "'Roboto', Helvetica, sans-serif",
+      content: "Nunito Sans', Helvetica, sans-serif"
     },
     colors: {
       orange: "#f4ae40",
@@ -16,25 +17,30 @@ export const theme = {
 
 export type MainThemeProps = ThemeProps<typeof theme>
 export const GlobalStyle = createGlobalStyle<MainThemeProps>`
-  body {
-    margin: 0;
-    font-family: ${({ theme }) => theme.fonts.basic};
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
+  ${normalize};
+  
   *,
-  *::after,
-  *::before { box-sizing: border-box; }
-
-  h1, h2, h3, h4, h5, h6 { margin: 0; }
-  a { color: ${({ theme }) => theme.colors.blue} }
-  a:hover { color: ${({ theme }) => theme.colors.pink} }
-
-  input,
-  textarea,
-  button {
-    font-family: ${({ theme }) => theme.fonts.basic};
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
-`
+
+  html {
+    font-size: 62.5%;
+  }
+
+  a {
+    color: #111;
+    text-decoration: none;
+  }
+
+  body {
+    color: #111;
+    font-family: ${(props) => props.theme.fonts.default};
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+  }
+`;
 
