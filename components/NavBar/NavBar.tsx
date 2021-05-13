@@ -1,21 +1,18 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { MdDashboard } from "react-icons/md";
 import { IoFastFood } from "react-icons/io5";
 import { GiCookingPot } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
+import { Button } from "../../shared/styles/buttons";
 
 const Nav = styled.nav`
   border-right: 2px solid #ccc;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  max-width: 300px;
   position: fixed;
   width: 80%;
-
-  @media screen and (min-width: 700px) {
-    max-width: 300px;
-  }
 `;
 
 const NavTitle = styled.h2`
@@ -63,18 +60,15 @@ const NavBar = () => (
         <NavTitle>EasyMealPlanner</NavTitle>
       </div>
       <NavItemsContainer>
+        <SectionLinksContainer>
+          <Link href="/create-recipe" passHref>
+            <Button>Add Recipe</Button>
+          </Link>
+        </SectionLinksContainer>
         <NavSectionTitle>Discover</NavSectionTitle>
         <SectionLinksContainer>
           <div>
-            <Link href="/login" passHref>
-              <NavLink>
-                <MdDashboard />
-                <NavText>Dashboard</NavText>
-              </NavLink>
-            </Link>
-          </div>
-          <div>
-            <Link href="/login" passHref>
+            <Link href="/recipes-index" passHref>
               <NavLink>
                 <IoFastFood />
                 <NavText>Recipes</NavText>
@@ -85,7 +79,7 @@ const NavBar = () => (
         <NavSectionTitle>Meal Prep</NavSectionTitle>
         <SectionLinksContainer>
           <div>
-            <Link href="/login" passHref>
+            <Link href="/meal-plan" passHref>
               <NavLink>
                 <GiCookingPot />
                 <NavText>Meal Plan</NavText>
@@ -93,7 +87,7 @@ const NavBar = () => (
             </Link>
           </div>
           <div>
-            <Link href="/login" passHref>
+            <Link href="/grocery-list" passHref>
               <NavLink>
                 <FaShoppingCart />
                 <NavText>Shopping List</NavText>
