@@ -15,6 +15,7 @@
   },
   "scripts": {
     "dev": "next",
+    "inspect": "NODE_OPTIONS='--inspect' next",
     "build": "next build",
     "start": "next start"
   },
