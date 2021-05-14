@@ -1,4 +1,3 @@
-import TextField from '@material-ui/core/TextField';
 import styled from "styled-components";
 import { AuthForm, FormControl } from "../shared/styles/forms";
 import { Center } from "../shared/styles/center";
@@ -10,10 +9,10 @@ const Login = () => (
         <p>Welcome back, let's get you some food.</p>
         <AuthForm>
             <FormControl>
-                <TextField type="email" label="Email" fullWidth />
+                <input type="email" name="email" />
             </FormControl>
             <FormControl>
-                <TextField type="password" label="Password" fullWidth />
+                <input type="password" name="password" />
             </FormControl>
             <Button>I'm hungry!</Button>
         </AuthForm>
