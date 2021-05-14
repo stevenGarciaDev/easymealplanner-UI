@@ -11,3 +11,19 @@ export const AuthForm = styled.form`
 export const FormControl = styled.div`
     margin: 15px 0px;
 `;
+
+export const Label = styled.label`
+    display: inline-block;
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+`;
+
+export const Input = styled.input`
+    border-radius: 5px;
+    border: 1px solid #111;
+    font-size: 2.2rem;
+    height: 5rem;
+    outline: none;
+    padding-left: 10px;
+    width: 100%;
+`;
