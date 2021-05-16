@@ -10,9 +10,12 @@ const Container = styled.div`
 
 const InputContainer = styled.div`
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
     grid-gap: 10px;
     margin-top: 10px;
+
+    @media screen and (min-width: 800px) {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
 `;
 
 const Input = styled.input`
@@ -22,6 +25,12 @@ const Input = styled.input`
     height: 38px;
     font-size: 2.2rem;
     padding-left: 5px;
+`;
+
+const Select = styled.select`
+    border-radius: 5px;
+    border: 1px solid #111;
+    outline: none;
 `;
 
 const FormControl = styled.div`
@@ -39,6 +48,9 @@ const Button = styled.button`
     height: 40px;
     outline: none;
     padding: 0px 10px;
+    &:hover {
+        background-color: #006600;
+    }
 `;
 
 type IngredientInputProps = {
@@ -101,12 +113,12 @@ const IngredientInput = ({ ingredients, addIngredient }: IngredientInputProps) =
                 
                 <FormControl>
                     <Label htmlFor="unit">Unit</Label>
-                    <select name="unit" value={unit} onChange={handleChange} id="unit">
+                    <Select name="unit" value={unit} onChange={handleChange} id="unit">
                         <option value=""></option>
                         <option value="CUP">CUP</option>
                         <option value="LB">LB</option>
                         <option value="G">G</option>
-                    </select>
+                    </Select>
                 </FormControl>
 
                 <Button type="button" onClick={handleNewIngredient}>Add</Button>
