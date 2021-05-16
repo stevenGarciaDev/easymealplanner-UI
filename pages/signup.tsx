@@ -1,6 +1,14 @@
-import TextField from '@material-ui/core/TextField';
+import { useState } from "react";
 import styled from "styled-components";
-import { AuthForm, FormControl } from "../shared/styles/forms";
+import {
+    FormHeadline,
+    FormSubheadline,
+    AuthForm,
+    FormControl,
+    Label,
+    Input
+} from "../shared/styles/forms";
+import { Button } from "../shared/styles/buttons";
 
 const Center = styled.div`
     align-items: center;
@@ -11,34 +19,59 @@ const Center = styled.div`
     width: 100%;
 `;
 
-const Button = styled.button`
-    background-color: #1D8F52;
-    border-radius: 50px;
-    border: 1px solid grey;
-    color: white;
-    cursor: pointer;
-    height: 40px;
-    margin: 10px 0px;
-    width: 100%;
-`;
+const SignUp = () => {
+    const [form, setForm] = useState({
+        firstName: '',
+        email: '',
+        password: ''
+    });
 
-const SignUp = () => (
-    <Center>
-        <h1>Sign Up</h1>
-        <p>Find delicious recipes and reach your health goals.</p>
-        <AuthForm>
-            <FormControl>
-                <TextField type="text" label="First Name" fullWidth={true} />
-            </FormControl>
-            <FormControl>
-                <TextField type="email" label="Email" fullWidth />
-            </FormControl>
-            <FormControl>
-                <TextField type="password" label="Password" fullWidth />
-            </FormControl>
-            <Button>Let's Eat!</Button>
-        </AuthForm>
-    </Center>
-);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setForm({ ...form, [name]: value });
+    };
+
+    const { firstName, email, password } = form;
+    return (
+        <Center>
+            <FormHeadline>Sign Up</FormHeadline>
+            <FormSubheadline>Find delicious recipes and reach your health goals.</FormSubheadline>
+            <AuthForm>
+                <FormControl>
+                    <Label htmlFor="firstName">First Name</Label>
+                    <Input
+                        type="text"
+                        name="firstName"
+                        value={firstName}
+                        onChange={handleChange}
+                        id="firstName"
+                    />
+                </FormControl>
+                <FormControl>
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={handleChange}
+                        id="email"
+                    />
+                </FormControl>
+                <FormControl>
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={handleChange}
+                        id="password"
+                    />
+                </FormControl>
+                <Button type="submit">Let's Eat!</Button>
+            </AuthForm>
+        </Center>
+    );
+};
 
 export default SignUp;
