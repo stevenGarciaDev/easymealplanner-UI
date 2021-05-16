@@ -6,13 +6,15 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Button } from "../../shared/styles/buttons";
 
 const Nav = styled.nav`
+  background-color: #fff;
   border-right: 2px solid #ccc;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-width: 300px;
+  max-width: 350px;
   position: fixed;
   width: 80%;
+  z-index: 2;
 `;
 
 const NavTitle = styled.h2`
@@ -29,7 +31,7 @@ const NavItemsContainer = styled.div`
 
 const NavSectionTitle = styled.h2`
   font-size: 3rem;
-  left: 1.5rem;
+  left: 4rem;
   margin: 1rem 0;
   position: relative;
 `;
@@ -37,7 +39,7 @@ const NavSectionTitle = styled.h2`
 const SectionLinksContainer = styled.div`
   color: #656567;
   font-size: 2.5rem;
-  padding: 5px 20px;
+  padding: 5px 50px;
 `;
 
 const NavLink = styled.a`
