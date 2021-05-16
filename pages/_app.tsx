@@ -8,9 +8,14 @@ import NavBar from "../components/NavBar";
 import styled from "styled-components";
 
 const Content = styled.div`
-    height: 100vh;
-    width: calc(100% - 300px);
-    float: right;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    @media screen and (min-width: 1200px) {
+        float: right;
+        width: calc(100% - 350px);
+    }
 `;
 
 export default function MyApp({ Component, pageProps }) {
