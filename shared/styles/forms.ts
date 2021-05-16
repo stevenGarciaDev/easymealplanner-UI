@@ -10,6 +10,7 @@ export const AuthForm = styled.form`
 
 export const FormControl = styled.div`
     margin: 15px 0px;
+    position: relative;
 `;
 
 export const Label = styled.label`
@@ -25,5 +26,6 @@ export const Input = styled.input`
     height: 5rem;
     outline: none;
     padding-left: 10px;
+    position: relative;
     width: 100%;
 `;
