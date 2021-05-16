@@ -25,8 +25,9 @@ export const AddButton = styled.button`
     cursor: pointer;
     outline: none;
     position: absolute;
-    height: 5rem;
+    height: 3.5rem;
     right: 0;
+    top: 40px;
     width: 100px;
     &:hover {
         background-color: #006600;
