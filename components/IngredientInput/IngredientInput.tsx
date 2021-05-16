@@ -22,7 +22,7 @@ const Input = styled.input`
     border-radius: 5px;
     border: 1px solid #111;
     outline: none;
-    height: 38px;
+    height: 3.5rem;
     font-size: 2.2rem;
     padding-left: 5px;
 `;
@@ -30,6 +30,7 @@ const Input = styled.input`
 const Select = styled.select`
     border-radius: 5px;
     border: 1px solid #111;
+    height: 3.5rem;
     outline: none;
 `;
 
@@ -45,7 +46,7 @@ const Button = styled.button`
     border: none;
     color: #fff;
     cursor: pointer;
-    height: 40px;
+    height: 3.5rem;
     outline: none;
     padding: 0px 10px;
     &:hover {
