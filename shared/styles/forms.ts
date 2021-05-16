@@ -8,6 +8,16 @@ export const AuthForm = styled.form`
     }
 `;
 
+export const FormHeadline = styled.h1`
+    font-size: 3rem;
+    margin: 0;
+`;
+
+export const FormSubheadline = styled.h2`
+    color: #555;
+    font-size: 2rem;
+`;
+
 export const FormControl = styled.div`
     margin: 15px 0px;
     position: relative;
@@ -15,15 +25,15 @@ export const FormControl = styled.div`
 
 export const Label = styled.label`
     display: inline-block;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 5px;
 `;
 
 export const Input = styled.input`
     border-radius: 5px;
     border: 1px solid #111;
-    font-size: 2.2rem;
-    height: 5rem;
+    font-size: 2rem;
+    height: 3.5rem;
     outline: none;
     padding-left: 10px;
     position: relative;
