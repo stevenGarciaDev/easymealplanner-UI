@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from 'next/head';
 import styled from "styled-components";
 import {
     FormHeadline,
@@ -34,43 +35,48 @@ const SignUp = () => {
 
     const { firstName, email, password } = form;
     return (
-        <Center>
-            <FormHeadline>Sign Up</FormHeadline>
-            <FormSubheadline>Find delicious recipes and reach your health goals.</FormSubheadline>
-            <AuthForm>
-                <FormControl>
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input
-                        type="text"
-                        name="firstName"
-                        value={firstName}
-                        onChange={handleChange}
-                        id="firstName"
-                    />
-                </FormControl>
-                <FormControl>
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={handleChange}
-                        id="email"
-                    />
-                </FormControl>
-                <FormControl>
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                        type="password"
-                        name="password"
-                        value={password}
-                        onChange={handleChange}
-                        id="password"
-                    />
-                </FormControl>
-                <Button type="submit">Let's Eat!</Button>
-            </AuthForm>
-        </Center>
+        <>
+            <Head>
+                <title>EasyMealPlanner | Sign up</title>
+            </Head>
+            <Center>
+                <FormHeadline>Sign Up</FormHeadline>
+                <FormSubheadline>Find delicious recipes and reach your health goals.</FormSubheadline>
+                <AuthForm>
+                    <FormControl>
+                        <Label htmlFor="firstName">First Name</Label>
+                        <Input
+                            type="text"
+                            name="firstName"
+                            value={firstName}
+                            onChange={handleChange}
+                            id="firstName"
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={handleChange}
+                            id="email"
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Label htmlFor="password">Password</Label>
+                        <Input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={handleChange}
+                            id="password"
+                        />
+                    </FormControl>
+                    <Button type="submit">Let's Eat!</Button>
+                </AuthForm>
+            </Center>
+        </>
     );
 };
 

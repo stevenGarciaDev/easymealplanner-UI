@@ -1,7 +1,14 @@
+import Head from 'next/head';
+
 const GroceryList = () => (
-    <div>
-        Grocery List
-    </div>
+    <>
+        <Head>
+            <title>EasyMealPlanner | Grocery List</title>
+        </Head>
+        <div>
+            Grocery List
+        </div>
+    </>
 );
 
 export default GroceryList;

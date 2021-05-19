@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import RecipeSearchBar from "../components/RecipeSearchBar";
 import RecipePreview from "../components/RecipePreview";
 import styled from "styled-components";
@@ -29,18 +30,23 @@ const RecipeContainer = styled.div`
 `;
 
 const RecipesIndex = () => (
-    <Page>
-        <RecipeSearchBar />
-        <RecipeContainer>
-            <RecipePreview />
-            <RecipePreview />
-            <RecipePreview />
-            <RecipePreview />
-            <RecipePreview />
-            <RecipePreview />
-            <RecipePreview />
-        </RecipeContainer>
+    <>
+        <Head>
+            <title>EasyMealPlanner | Recipes</title>
+        </Head>
+        <Page>
+            <RecipeSearchBar />
+            <RecipeContainer>
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+            </RecipeContainer>
     </Page>
+    </>
 );
 
 export default RecipesIndex;

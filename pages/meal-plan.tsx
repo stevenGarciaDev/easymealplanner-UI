@@ -1,7 +1,14 @@
+import Head from 'next/head';
+
 const MealPlan = () => (
-    <div>
-        MealPlan
-    </div>
+    <>
+        <Head>
+            <title>EasyMealPlanner | Meal Plan</title>
+        </Head>
+        <div>
+            MealPlan
+        </div>
+    </>
 );
 
 export default MealPlan;

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { selectUserToken } from "../../store/user/user.selectors";
 
 const NavBar = ({ userToken }) => {
-    console.log("userToken", userToken);
     return (
         <>
             {

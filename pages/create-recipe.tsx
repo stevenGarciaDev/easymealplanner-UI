@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Head from 'next/head';
 import { FormControl } from "../shared/styles/forms";
 import styled from "styled-components";
 import { Label, Input } from "../shared/styles/forms";
@@ -151,57 +152,62 @@ const CreateRecipe = () => {
 
     const { name, description, currentInstruction } = recipeForm;
     return (
-        <Page>
-            <Headline>Create a New Recipe</Headline>
-            <RecipeForm onSubmit={handleSubmit} encType="multipart/form-data">
-                <FormControl>
-                    <Label htmlFor="name">Recipe Name</Label>
-                    <Input type="text" name="name" id="name" value={name} onChange={handleChange} />
-                </FormControl>
-                <FormControl>
-                    <Label htmlFor="description">Description</Label>
-                    <Input type="text" name="description" id="description" value={description} onChange={handleChange} />
-                </FormControl>
-                <FormControl>
-                    <Label>List the ingredients needed for one serving.</Label>
-                    <IngredientInput
-                        ingredients={ingredients}
-                        addIngredient={addIngredient}
-                        possibleUnits={possibleUnits}
-                    />
-                    <IngredientFormList ingredients={ingredients} removeIngredient={removeIngredient} />
-                </FormControl>
-                <FormControl>
-                    <Label htmlFor="currentInstruction">Specify the instructions</Label>
-                    <Input
-                        type="text"
-                        name="currentInstruction"
-                        id="currentInstruction"
-                        value={currentInstruction}
-                        onKeyPress={keyPressAddInstruction}
-                        onChange={handleChange}
-                    />
-                    <AddInstructionButton type="button" onClick={addInstruction}>Add</AddInstructionButton>
-                    <InstructionsContainer>
-                        {instructions.map((instruction, index) => {
-                            const stepNumber = index + 1;
-                            return (
-                                <Instruction
-                                    key={`${stepNumber}${description}`}
-                                    stepNumber={stepNumber}
-                                    description={instruction}
-                                    remove={removeInstruction}
-                                />
-                            );
-                        })}
-                    </InstructionsContainer>
-                </FormControl>
-                <FormControl>
-                    <ImageDropzone file={image} setImage={setImage} />
-                </FormControl>
-                <SubmitButton type="submit">Create Recipe</SubmitButton>
-            </RecipeForm>
-        </Page>
+        <>
+            <Head>
+                <title>EasyMealPlanner | Create Recipe</title>
+            </Head>
+            <Page>
+                <Headline>Create a New Recipe</Headline>
+                <RecipeForm onSubmit={handleSubmit} encType="multipart/form-data">
+                    <FormControl>
+                        <Label htmlFor="name">Recipe Name</Label>
+                        <Input type="text" name="name" id="name" value={name} onChange={handleChange} />
+                    </FormControl>
+                    <FormControl>
+                        <Label htmlFor="description">Description</Label>
+                        <Input type="text" name="description" id="description" value={description} onChange={handleChange} />
+                    </FormControl>
+                    <FormControl>
+                        <Label>List the ingredients needed for one serving.</Label>
+                        <IngredientInput
+                            ingredients={ingredients}
+                            addIngredient={addIngredient}
+                            possibleUnits={possibleUnits}
+                        />
+                        <IngredientFormList ingredients={ingredients} removeIngredient={removeIngredient} />
+                    </FormControl>
+                    <FormControl>
+                        <Label htmlFor="currentInstruction">Specify the instructions</Label>
+                        <Input
+                            type="text"
+                            name="currentInstruction"
+                            id="currentInstruction"
+                            value={currentInstruction}
+                            onKeyPress={keyPressAddInstruction}
+                            onChange={handleChange}
+                        />
+                        <AddInstructionButton type="button" onClick={addInstruction}>Add</AddInstructionButton>
+                        <InstructionsContainer>
+                            {instructions.map((instruction, index) => {
+                                const stepNumber = index + 1;
+                                return (
+                                    <Instruction
+                                        key={`${stepNumber}${description}`}
+                                        stepNumber={stepNumber}
+                                        description={instruction}
+                                        remove={removeInstruction}
+                                    />
+                                );
+                            })}
+                        </InstructionsContainer>
+                    </FormControl>
+                    <FormControl>
+                        <ImageDropzone file={image} setImage={setImage} />
+                    </FormControl>
+                    <SubmitButton type="submit">Create Recipe</SubmitButton>
+                </RecipeForm>
+            </Page>
+        </>
     );
 };
 
