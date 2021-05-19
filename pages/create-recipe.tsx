@@ -46,6 +46,7 @@ const InstructionsContainer = styled.div`
 
 const AddInstructionButton = styled(AddButton)`
     background-color: var(--color-primary);
+    font-size: 2.3rem;
 `;
 
 const ImageInput = styled.input`

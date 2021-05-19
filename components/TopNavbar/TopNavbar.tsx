@@ -9,6 +9,7 @@ const Nav = styled.nav`
     font-size: 2rem;
     justify-content: space-between;
     padding: 0px 10px;
+    width: 100%;
 
     @media screen and (min-width: 1000px) {
         padding: 0px 50px;
@@ -55,7 +56,7 @@ const LinkText = styled.a`
 const TopNavbar = () => (
     <Nav>
         <Link href="/" passHref>
-            <LinkTitleText>EasyMealPlanner</LinkTitleText>
+            <LinkTitleText>Easy Meal Planner</LinkTitleText>
         </Link>
         <AuthLinksContainer>
             <Link href="/login">

@@ -32,6 +32,7 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
 
   html {
     font-size: 62.5%;
+    overflow-x: hidden;
   }
 
   a {
@@ -44,6 +45,7 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
     font-family: ${(props) => props.theme.fonts.default};
     height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     padding: 0;
     width: 100vw;
   }

@@ -9,7 +9,8 @@ type ContentProps = {
 const Content = styled.div<ContentProps>`
     height: 100%;
     overflow-x: hidden;
-    overflow-y: scroll;
+    margin: 0;
+    padding: 0px;
 
     @media screen and (min-width: 1200px) {
         float: right;
