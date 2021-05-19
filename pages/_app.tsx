@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 import Head from 'next/head';
-
 import { ThemeProvider } from "styled-components"
 import { GlobalStyle, theme } from '../shared/theme';
-
 import TopNavbar from "../components/TopNavbar";
+import SideNavBar from "../components/SideNavBar";
 import NavBar from "../components/NavBar";
 import styled from "styled-components";
 
@@ -20,26 +21,30 @@ const Content = styled.div<ContentProps>`
     @media screen and (min-width: 1200px) {
         float: right;
         width: ${(props) => props.isAuthenticated ? "calc(100% - 350px)" : "100%"};
-        // width: calc(100% - 350px);
     }
 `;
 
-export default function MyApp({ Component, pageProps }) {
-    const [isAuthenticated, setAuthenticated] = useState(false);
+const MyApp = ({ Component, pageProps }) => {
+    const [isAuthenticated, setAuthenticated] = useState(true);
 
     return (
-        <ThemeProvider theme={theme}>
-            <GlobalStyle theme={theme} />
-            <Head>
-                <title>EasyMealPlanner | Welcome</title>
-            </Head>
-            <main>
-                <TopNavbar />
-                {/* <NavBar /> */}
-                <Content isAuthenticated={isAuthenticated}>
-                    <Component {...pageProps} />
-                </Content>
-            </main>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <GlobalStyle theme={theme} />
+                <Head>
+                    <title>EasyMealPlanner | Welcome</title>
+                </Head>
+                <main>
+                        {/* <TopNavbar /> */}
+                        {/* <SideNavBar /> */}
+                        <NavBar />
+                        <Content isAuthenticated={isAuthenticated}>
+                            <Component {...pageProps} />
+                        </Content>
+                </main>
+            </ThemeProvider>
+        </Provider>
     );
 }
+
+export default MyApp;
