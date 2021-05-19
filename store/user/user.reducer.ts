@@ -13,7 +13,12 @@ const initialState: UserReducerType = {
 export const userReducer = (state: UserReducerType = initialState, action) => {
     switch (action.type) {
         case UserTypes.LOGIN:
-            return state;
+            const { name, token } = action;
+            return {
+                ...state,
+                name,
+                token
+            };
         case UserTypes.SIGNUP:
             return state;
         case UserTypes.LOGOUT:
