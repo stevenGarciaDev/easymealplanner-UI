@@ -57,10 +57,11 @@ const Button = styled.button`
 type IngredientInputProps = {
     ingredients: Ingredient[];
     addIngredient(ingredient: Ingredient): void;
+    possibleUnits: string[];
 }
 
  
-const IngredientInput = ({ ingredients, addIngredient }: IngredientInputProps) => {
+const IngredientInput = ({ ingredients, addIngredient, possibleUnits }: IngredientInputProps) => {
     const [ingredient, setIngredient] = useState({
         ingredientName: '',
         unit: '',
@@ -116,9 +117,7 @@ const IngredientInput = ({ ingredients, addIngredient }: IngredientInputProps) =
                     <Label htmlFor="unit">Unit</Label>
                     <Select name="unit" value={unit} onChange={handleChange} id="unit">
                         <option value=""></option>
-                        <option value="CUP">CUP</option>
-                        <option value="LB">LB</option>
-                        <option value="G">G</option>
+                        {possibleUnits.map(u => <option key={u} value={u}>{u.toLowerCase()}</option>)}
                     </Select>
                 </FormControl>
 
