@@ -48,10 +48,10 @@ const Input = styled.input`
 
 const SearchButton = styled.div`
     align-items: center;
-    background-color: #1D8F52;
+    background-color: var(--color-primary);
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
-    border: 1px solid #1D8F52;
+    border: 1px solid var(--color-primary);
     color: white;
     display: flex;
     height: 60px;
@@ -61,7 +61,7 @@ const SearchButton = styled.div`
     top: 0;
     width: 100px;
     &:hover {
-        background-color: #006600;
+        background-color: var(--color-hover);
         cursor: pointer;
     }
     @media screen and (min-width: 1000px) {

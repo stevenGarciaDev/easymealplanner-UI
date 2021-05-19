@@ -25,6 +25,11 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
     box-sizing: border-box;
   }
 
+  :root {
+    --color-primary: #1D8F52;
+    --color-hover: #006600;
+  }
+
   html {
     font-size: 62.5%;
   }

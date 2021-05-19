@@ -41,7 +41,7 @@ const FormControl = styled.div`
 
 const Button = styled.button`
     align-self: flex-end;
-    background-color: #1D8F52;
+    background-color: var(--color-primary);
     border-radius: 5px;
     border: none;
     color: #fff;
@@ -50,7 +50,7 @@ const Button = styled.button`
     outline: none;
     padding: 0px 10px;
     &:hover {
-        background-color: #006600;
+        background-color: var(--color-hover):
     }
 `;
 

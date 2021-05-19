@@ -20,7 +20,7 @@ const Nav = styled.nav`
 `;
 
 const NavTitle = styled.h2`
-  color: #1D8F52;
+  color: var(--color-primary);
   font-family: 'Luckiest Guy', cursive;
   font-size: 3rem;
   position: relative;
@@ -54,7 +54,7 @@ const NavLink = styled.a`
   margin: 15px 0px;
 
   &:hover {
-    color: #1D8F52;
+    color: var(--color-primary);
   }
 `;
 

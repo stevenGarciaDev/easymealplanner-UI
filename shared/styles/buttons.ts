@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-    background-color: #1D8F52;
+    background-color: var(--color-primary);
     border-radius: 50px;
     border: none;
     color: #fff;
@@ -12,12 +12,12 @@ export const Button = styled.button`
     width: 100%;
 
     &:hover {
-        background-color: #006600;
+        background-color: var(--color-hover);
     }
 `;
 
 export const AddButton = styled.button`
-    background-color: #1D8F52;
+    background-color: var(--color-primary);
     border: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -30,6 +30,6 @@ export const AddButton = styled.button`
     top: 40px;
     width: 100px;
     &:hover {
-        background-color: #006600;
+        background-color: var(--color-hover);
     }
 `;

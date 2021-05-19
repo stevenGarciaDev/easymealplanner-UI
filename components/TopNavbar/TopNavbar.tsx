@@ -21,7 +21,7 @@ const AuthLinksContainer = styled.div`
 `;
 
 const LinkTitleText = styled.a`
-    color: #1D8F52;
+    color: var(--color-primary);
     font-family: 'Luckiest Guy', cursive;
     font-size: 2rem;
     margin: 0 5px;
@@ -40,7 +40,7 @@ const LinkText = styled.a`
     margin: 0 5px;
 
     &:hover {
-        color: #1D8F52;
+        color: var(--color-primary);
     }
 
     @media screen and (min-width: 500px) {
@@ -54,7 +54,7 @@ const LinkText = styled.a`
 
 const TopNavbar = () => (
     <Nav>
-        <Link href="/login" passHref>
+        <Link href="/" passHref>
             <LinkTitleText>EasyMealPlanner</LinkTitleText>
         </Link>
         <AuthLinksContainer>
