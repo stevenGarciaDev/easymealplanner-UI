@@ -5,5 +5,4 @@ export type RecipeType = {
     description: string;
     instructions: string[];
     ingredients: Ingredient[];
-    image: any;
 };

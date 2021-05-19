@@ -1,27 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormControl } from "../shared/styles/forms";
 import styled from "styled-components";
 import { Label, Input } from "../shared/styles/forms";
 import IngredientInput from "../components/IngredientInput";
 import IngredientFormList from "../components/IngredientFormList";
 import Instruction from "../components/Instruction";
+import ImageDropzone from "../components/ImageDropzone";
 import { Ingredient } from "../shared/types/Ingredient";
-import { Instruction as InstructionType } from "../shared/types/Instruction";
 import { Button as SubmitButton, AddButton } from "../shared/styles/buttons";
 
 import { createRecipeAsync } from "../services/recipeService";
+import { getPossibleUnitsAsync } from "../services/recipeIngredientService";
 
 const Page = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin-top: 100px;
+    margin-top: 50px;
     min-height: calc(100vh);
-    width: 100%:
+    width: 100%;
 
     @media screen and (min-width: 1200px) {
-        margin-top: 10%;
+        margin-top: 7%;
     }
 `;
 
@@ -57,11 +58,21 @@ const CreateRecipe = () => {
     const [recipeForm, setRecipeForm] = useState({
         name: '',
         description: '',
-        currentInstruction: '',
-        image: ''
+        currentInstruction: ''
     });
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
     const [instructions, setInstructions] = useState<string[]>([]);
+    const [possibleUnits, setUnits] = useState<string[]>([]);
+    const [image, setImage] = useState<File>(null);
+
+    useEffect(() => {       
+        getPossibleUnitsAsync()
+            .then(units => {
+                console.log("units", units);
+                setUnits(units);
+            })
+            .catch(error => setUnits([]));
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -99,13 +110,13 @@ const CreateRecipe = () => {
     }
 
     const isValidForSubmission = () => {
-        const { name, description, image } = recipeForm;
+        const { name, description } = recipeForm;
 
         return (name.length > 0 
             && description.length > 0
             && instructions.length > 0
             && ingredients.length > 0
-            && image.length > 0)
+            && image != null)
             ? true : false;
     }
 
@@ -114,10 +125,10 @@ const CreateRecipe = () => {
             name: '',
             description: '',
             currentInstruction: '',
-            image: ''
         });
+        setImage(null);
         setIngredients([]);
-        setInstructions([]);
+        setInstructions([]); 
     }
 
     const handleSubmit = async (e) => {
@@ -126,14 +137,13 @@ const CreateRecipe = () => {
         if (!isValidForSubmission()) {
             return;
         }
-        const { name, description, image } = recipeForm;
+        const { name, description } = recipeForm;
 
         await createRecipeAsync({
             name,
             description,
-            instructions,
             ingredients,
-            image
+            instructions,
         });
 
         resetAllFields();
@@ -143,7 +153,7 @@ const CreateRecipe = () => {
     return (
         <Page>
             <Headline>Create a New Recipe</Headline>
-            <RecipeForm onSubmit={handleSubmit}>
+            <RecipeForm onSubmit={handleSubmit} encType="multipart/form-data">
                 <FormControl>
                     <Label htmlFor="name">Recipe Name</Label>
                     <Input type="text" name="name" id="name" value={name} onChange={handleChange} />
@@ -157,11 +167,12 @@ const CreateRecipe = () => {
                     <IngredientInput
                         ingredients={ingredients}
                         addIngredient={addIngredient}
+                        possibleUnits={possibleUnits}
                     />
                     <IngredientFormList ingredients={ingredients} removeIngredient={removeIngredient} />
                 </FormControl>
                 <FormControl>
-                    <Label htmlFor="currentInstruction">Specify the Instructions</Label>
+                    <Label htmlFor="currentInstruction">Specify the instructions</Label>
                     <Input
                         type="text"
                         name="currentInstruction"
@@ -186,8 +197,7 @@ const CreateRecipe = () => {
                     </InstructionsContainer>
                 </FormControl>
                 <FormControl>
-                    <Label htmlFor="image">Add an Image</Label>
-                    <ImageInput type="file" name="image" id="image" accept="image/*" onChange={handleChange} />
+                    <ImageDropzone file={image} setImage={setImage} />
                 </FormControl>
                 <SubmitButton type="submit">Create Recipe</SubmitButton>
             </RecipeForm>
