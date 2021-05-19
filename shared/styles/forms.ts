@@ -16,6 +16,7 @@ export const FormHeadline = styled.h1`
 export const FormSubheadline = styled.h2`
     color: #555;
     font-size: 2rem;
+    text-align: center;
 `;
 
 export const FormControl = styled.div`

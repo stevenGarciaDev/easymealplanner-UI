@@ -9,6 +9,10 @@ const Nav = styled.nav`
     font-size: 2rem;
     justify-content: space-between;
     padding: 0px 10px;
+
+    @media screen and (min-width: 1000px) {
+        padding: 0px 50px;
+    }
 `;
 
 const AuthLinksContainer = styled.div`
@@ -19,19 +23,32 @@ const AuthLinksContainer = styled.div`
 const LinkTitleText = styled.a`
     color: #1D8F52;
     font-family: 'Luckiest Guy', cursive;
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin: 0 5px;
     position: relative;
     top: 5px;
+
+    @media screen and (min-width: 500px) {
+        font-size: 2.5rem;
+    }
 `;
 
 const LinkText = styled.a`
     cursor: pointer;
     display: inline-block;
+    font-size: 1.8rem;
     margin: 0 5px;
 
     &:hover {
         color: #1D8F52;
+    }
+
+    @media screen and (min-width: 500px) {
+        font-size: 2rem;
+    }
+
+    @media screen and (min-width: 1000px) {
+        margin: 0 10px;
     }
 `;
 
