@@ -16,6 +16,15 @@ const AuthLinksContainer = styled.div`
     display: flex;
 `;
 
+const LinkTitleText = styled.a`
+    color: #1D8F52;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 2.5rem;
+    margin: 0 5px;
+    position: relative;
+    top: 5px;
+`;
+
 const LinkText = styled.a`
     cursor: pointer;
     display: inline-block;
@@ -28,8 +37,8 @@ const LinkText = styled.a`
 
 const TopNavbar = () => (
     <Nav>
-        <Link href="/login">
-            <LinkText>EasyMealPlanner</LinkText>
+        <Link href="/login" passHref>
+            <LinkTitleText>EasyMealPlanner</LinkTitleText>
         </Link>
         <AuthLinksContainer>
             <Link href="/login">
