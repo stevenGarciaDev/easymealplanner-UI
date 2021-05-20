@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { selectUser, selectUserToken } from "../../store/user/user.selectors";
+import { selectUserToken } from "../../store/user/user.selectors";
 
 type ContentProps = {
     isAuthenticated: boolean;
@@ -8,19 +8,22 @@ type ContentProps = {
 
 const Content = styled.div<ContentProps>`
     height: 100%;
-    overflow-x: hidden;
     margin: 0;
-    padding: 0px;
+    overflow-x: hidden;
+    padding: 90px 0px 0px 0px;
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: 1000px) {
         float: right;
-        width: ${(props) => props.isAuthenticated ? "calc(100% - 350px)" : "100%"};
+        padding: 0;
+        width: ${(props) => (props.isAuthenticated) ? "calc(100% - 350px)" : "100%"};
     }
 `;
 
 const ContentContainer = ({ userToken, children }) => {
     return (
-        <Content isAuthenticated={userToken !== ''}>
+        <Content
+            isAuthenticated={userToken !== ''}
+        >
             {children}
         </Content>
 
@@ -28,7 +31,7 @@ const ContentContainer = ({ userToken, children }) => {
 }
 
 const mapStateToProps = (state) => ({
-    userToken: selectUserToken(state)
+    userToken: selectUserToken(state),
 });
 
 export default connect(mapStateToProps)(ContentContainer);
