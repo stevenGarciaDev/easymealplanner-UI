@@ -6,17 +6,33 @@ import { FaShoppingCart } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
 import { MdAccountCircle } from "react-icons/md";
 import { Button } from "../../shared/styles/buttons";
+import { connect } from "react-redux";
+import { selectSidebarStatus } from "../../store/sidebar/sidebar.selectors";
 
-const Nav = styled.nav`
+type NavProps = {
+  isSidebarOpen: boolean;
+};
+
+const Nav = styled.nav<NavProps>`
   background-color: #fff;
   border-right: 2px solid #ccc;
-  display: flex;
+  display: ${(props) => props.isSidebarOpen ? "flex" : "none"};
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   max-width: 350px;
+  overflow-y: scroll;
+  overflow-x: hidden;
   position: fixed;
   width: 80%;
-  z-index: 2;
+  z-index: 4;
+
+  @media screen and (min-width: 500px) {
+    overflow-y: hidden;
+  }
+
+  @media screen and (min-width: 1000px) {
+    display: flex;
+  }
 `;
 
 const NavTitle = styled.h2`
@@ -62,8 +78,8 @@ const NavText = styled.span`
   padding-left: 10px;
 `;
 
-const SideNavBar = () => (
-  <Nav>
+const SideNavBar = ({ isSidebarOpen }) => (
+  <Nav isSidebarOpen={isSidebarOpen}>
       <div>
         <NavTitle>Easy Meal Planner</NavTitle>
       </div>
@@ -126,4 +142,8 @@ const SideNavBar = () => (
   </Nav>
 );
 
-export default SideNavBar;
+const mapStateToProps = (state) => ({
+  isSidebarOpen: selectSidebarStatus(state)
+});
+
+export default connect(mapStateToProps)(SideNavBar);
