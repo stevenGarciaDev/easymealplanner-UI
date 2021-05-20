@@ -29,13 +29,15 @@ const RecipePreview = ({ saved = false }) => {
 export default RecipePreview;
 
 export const Container = styled.div`
-  border: 1px solid #ccc;
+  align-items: center;
   border-radius: 5px;
+  border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 300px;
-  width: 300px;
+  height: 100%;
+  min-height: 300px;
+  min-width: 300px;
+  width: 100%;
   z-index: 2;
 `;
 
@@ -58,19 +60,19 @@ const TextContainer = styled.div`
 `;
 
 const TextContent = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0px 10px;
   font-family: 'Amaranth', sans-serif;
   font-size: 25px;
+  justify-content: space-between;
+  margin: 0px 10px;
   position: relative;
   top: -10px;
 `;
 
 const Icon = styled.div`
   color: #5f9f3d;
-  height: 100%;
   cursor: pointer;
+  height: 100%;
 `;
