@@ -1,0 +1,1 @@
+export const selectSidebarStatus = (state) => state.sidebar.isSidebarOpen;
