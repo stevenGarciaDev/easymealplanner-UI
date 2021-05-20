@@ -21,7 +21,7 @@ const SearchContainer = styled.div`
     left: -20px;
     position: relative;
     width: 80%;
-    z-index: 3;
+    z-index: 2;
 `;
 
 const Icon = styled(MdSearch)`
@@ -30,7 +30,7 @@ const Icon = styled(MdSearch)`
     left: 8px;
     position: absolute;
     top: 18px;
-    z-index: 3;
+    z-index: 2;
 `;
 
 const Input = styled.input`
