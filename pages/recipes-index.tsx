@@ -8,23 +8,23 @@ const Page = styled.div`
 `;
 
 const RecipeContainer = styled.div`
-    display: grid;
     column-gap: 10px;
-    row-gap: 30px;
+    display: grid;
     grid-template-columns: 1fr;
-    justify-items: center;
     height: 100%;
-    padding: 150px 0px;
+    justify-items: center;
+    padding: 150px 10px;
+    grid-gap: 30px;
 
     @media screen and (min-width: 700px) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media screen and (min-width: 1000px) {
+    @media screen and (min-width: 1200px) {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    @media screen and (min-width: 1500px) {
+    @media screen and (min-width: 1600px) {
         grid-template-columns: repeat(4, 1fr);
     }
 `;
@@ -37,6 +37,14 @@ const RecipesIndex = () => (
         <Page>
             <RecipeSearchBar />
             <RecipeContainer>
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
+                <RecipePreview />
                 <RecipePreview />
                 <RecipePreview />
                 <RecipePreview />
