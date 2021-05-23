@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styled from "styled-components";
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
+import GroceryListItem from "../components/GroceryListItem";
 
 const Page = styled.div`
     font-family: 'Amaranth', sans-serif;
@@ -11,8 +12,21 @@ const Page = styled.div`
 
 const GroceryListTitle = styled.h1`
     display: flex;
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
     justify-content: center;
+    text-align: center;
+
+    @media screen and (min-width: 600px) {
+        font-size: 3rem;
+    }
+`;
+
+const Subheadline = styled.h2`
+    color: grey;
+    font-size: 1.9rem;
+    font-style: italic;
+    text-align: center;
 `;
 
 const GroceryListContainer = styled.div`
@@ -37,29 +51,8 @@ const SectionTitleContainer = styled.div`
 const SectionTitle = styled.h2`
     color: white;
     font-family: 'Amaranth', sans-serif;
-    font-size: 3.3rem;
+    font-size: 2.7rem;
     margin: 10px;
-`;
-
-const Item = styled.div`
-    align-items: center;
-    border: 1px solid #ccc;
-    color: #222;
-    display: flex;
-    font-size: 3rem;
-    padding: 5px;
-`;
-
-const CheckedIcon = styled(ImCheckboxChecked)`
-    color: var(--color-primary);
-    cursor: pointer;
-    margin-right: 5px;
-`;
-
-const UncheckedIcon = styled(ImCheckboxUnchecked)`
-    color: var(--color-primary);
-    cursor: pointer;
-    margin-right: 5px;
 `;
 
 const GroceryList = () => (
@@ -69,60 +62,61 @@ const GroceryList = () => (
         </Head>
         <Page>
             <GroceryListTitle>Steven's Grocery List</GroceryListTitle>
+            <Subheadline>Generated based on your meal plan.</Subheadline>
             <GroceryListContainer>
                 <SectionTitleContainer>
                     <SectionTitle>Herbs and Spices</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Baking and Cooking</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Dairy</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Meat</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Beans and Grains</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Canned</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Condiments</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Frozen Foods</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
 
                 <SectionTitleContainer>
                     <SectionTitle>Produce</SectionTitle>
                 </SectionTitleContainer>
-                <Item><CheckedIcon />Apple</Item>
-                <Item><UncheckedIcon />Banana</Item>
+                <GroceryListItem isChecked={false} name="Apple" />
+                <GroceryListItem isChecked={true} name="Banana" />
             </GroceryListContainer>
         </Page>
     </>

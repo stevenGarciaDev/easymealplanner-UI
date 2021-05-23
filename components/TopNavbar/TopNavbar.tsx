@@ -23,11 +23,10 @@ const AuthLinksContainer = styled.div`
 
 const LinkTitleText = styled.a`
     color: var(--color-primary);
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Permanent Marker', cursive;
     font-size: 2rem;
     margin: 0 5px;
     position: relative;
-    top: 5px;
 
     @media screen and (min-width: 500px) {
         font-size: 2.5rem;

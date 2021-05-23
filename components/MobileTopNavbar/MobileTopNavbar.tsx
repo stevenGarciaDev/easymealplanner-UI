@@ -39,8 +39,9 @@ const CloseSidebarIcon = styled(GrClose)`
 
 const Title = styled.h2`
     color: var(--color-primary);
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 1.8rem;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
+    position: relative;
 `;
 
 const MobileTopNavbar = ({ isSidebarOpen, open, close }) => {

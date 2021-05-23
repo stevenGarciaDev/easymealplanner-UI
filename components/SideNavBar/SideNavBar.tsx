@@ -37,7 +37,7 @@ const Nav = styled.nav<NavProps>`
 
 const NavTitle = styled.h2`
   color: var(--color-primary);
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Permanent Marker', cursive;
   font-size: 3rem;
   position: relative;
   text-align: center;
@@ -122,7 +122,7 @@ const SideNavBar = ({ isSidebarOpen }) => (
         <NavSectionTitle>Settings</NavSectionTitle>
         <SectionLinksContainer>
           <div>
-            <Link href="/meal-plan" passHref>
+            <Link href="/account" passHref>
               <NavLink>
                 <MdAccountCircle />
                 <NavText>Account</NavText>
