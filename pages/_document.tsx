@@ -11,7 +11,7 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
-                    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Roboto&family=Luckiest+Guy&display=swap" rel="stylesheet" />
+                    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Roboto&family=Permanent+Marker&display=swap" rel="stylesheet" />
                 </Head>
                 <body>
                     <Main />
