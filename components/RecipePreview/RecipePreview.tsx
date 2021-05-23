@@ -8,7 +8,7 @@ const RecipePreview = ({ saved = false }) => {
 
   return (
     <Container>
-      <Link href="/" passHref>
+      <Link href="/recipe-detail" passHref>
         <ImageContainer
             src="https://en.wikipedia.org/wiki/Taco#/media/File:001_Tacos_de_carnitas,_carne_asada_y_al_pastor.jpg"
             alt="testing"
