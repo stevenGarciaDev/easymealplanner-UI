@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import styled from "styled-components";
-import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 import GroceryListItem from "../components/GroceryListItem";
 
 const Page = styled.div`
@@ -44,7 +43,7 @@ const GroceryListContainer = styled.div`
 `;
 
 const SectionTitleContainer = styled.div`
-    background-color: #222;
+    background-color: #3e3e3e;
     border: 1px solid #ccc;
 `;
 
