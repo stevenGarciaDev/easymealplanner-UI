@@ -137,4 +137,6 @@ const MealPlan = () => {
     );
 };
 
+MealPlan.requireAuth = true;
+
 export default MealPlan;

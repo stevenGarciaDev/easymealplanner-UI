@@ -71,4 +71,6 @@ const Account = () => {
     );
 }
 
+Account.requireAuth = true;
+
 export default Account;

@@ -212,4 +212,6 @@ const CreateRecipe = () => {
     );
 };
 
+CreateRecipe.requireAuth = true;
+
 export default CreateRecipe;

@@ -29,32 +29,36 @@ const RecipeContainer = styled.div`
     }
 `;
 
-const RecipesIndex = () => (
-    <>
-        <Head>
-            <title>EasyMealPlanner | Recipes</title>
-        </Head>
-        <Page>
-            <RecipeSearchBar />
-            <RecipeContainer>
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-                <RecipePreview />
-            </RecipeContainer>
-    </Page>
-    </>
-);
+const RecipesIndex = () => {
+    return (
+        <>
+            <Head>
+                <title>EasyMealPlanner | Recipes</title>
+            </Head>
+            <Page>
+                <RecipeSearchBar />
+                <RecipeContainer>
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                    <RecipePreview />
+                </RecipeContainer>
+            </Page>
+        </>
+    );
+};
+
+RecipesIndex.requireAuth = true;
 
 export default RecipesIndex;

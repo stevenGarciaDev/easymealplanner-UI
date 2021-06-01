@@ -121,4 +121,6 @@ const GroceryList = () => (
     </>
 );
 
+GroceryList.requireAuth = true;
+
 export default GroceryList;

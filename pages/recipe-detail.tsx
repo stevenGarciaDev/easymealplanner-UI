@@ -140,4 +140,6 @@ const RecipeDetail = () => {
     );
 }
 
+RecipeDetail.requireAuth = true;
+
 export default RecipeDetail;
