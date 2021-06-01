@@ -1,10 +1,14 @@
 import { SidebarActionTypes } from './sidebar.types';
 
-const INITIAL_STATE = {
+export type SidebarReducerType = {
+  isSidebarOpen: boolean;
+}
+
+const initialState: SidebarReducerType = {
   isSidebarOpen: true,
 };
 
-export const sidebarReducer = (state = INITIAL_STATE, action) => {
+export const sidebarReducer = (state = initialState, action) => {
   switch (action.type) {
     case SidebarActionTypes.OPEN_SIDEBAR:
       return {
