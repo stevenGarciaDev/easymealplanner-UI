@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from 'next/head';
+import Router from "next/router";
 import styled from "styled-components";
 import {
     FormHeadline,
@@ -10,6 +11,9 @@ import {
     Input
 } from "../shared/styles/forms";
 import { Button } from "../shared/styles/buttons";
+import { register, setUserErrorMessage} from "../store/user/user.actions";
+import { selectUserToken, selectUserErrorMessage } from "../store/user/user.selectors";
+import { useDispatch, useSelector } from "react-redux";
 
 const Center = styled.div`
     align-items: center;
@@ -20,12 +24,26 @@ const Center = styled.div`
     width: 100%;
 `;
 
+const ErrorText = styled.h2`
+    color: maroon;
+    font-size: 2.6rem;
+    font-style: italic;
+    margin: 10px;
+`;
+
 const SignUp = () => {
     const [form, setForm] = useState({
-        firstName: '',
+        username: '',
         email: '',
         password: ''
     });
+    const dispatch = useDispatch();
+    const token = useSelector(selectUserToken);
+    const errorMessage = useSelector(selectUserErrorMessage);
+
+    useEffect(() => {
+        dispatch(setUserErrorMessage(''));
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,7 +51,21 @@ const SignUp = () => {
         setForm({ ...form, [name]: value });
     };
 
-    const { firstName, email, password } = form;
+    const isValidFormSubmission = () => {
+        return true;
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        dispatch(register(form));
+
+        if (errorMessage === '' && token != '') {
+            Router.push("/recipes-index");
+        }
+    }
+
+    const { username, email, password } = form;
     return (
         <>
             <Head>
@@ -42,15 +74,16 @@ const SignUp = () => {
             <Center>
                 <FormHeadline>Sign Up</FormHeadline>
                 <FormSubheadline>Find delicious recipes and reach your health goals.</FormSubheadline>
-                <AuthForm>
+                {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+                <AuthForm onSubmit={handleSubmit}>
                     <FormControl>
-                        <Label htmlFor="firstName">First Name</Label>
+                        <Label htmlFor="username">User name</Label>
                         <Input
                             type="text"
-                            name="firstName"
-                            value={firstName}
+                            name="username"
+                            value={username}
                             onChange={handleChange}
-                            id="firstName"
+                            id="username"
                         />
                     </FormControl>
                     <FormControl>
