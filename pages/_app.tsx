@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components"
 import { GlobalStyle, theme } from '../shared/theme';
 import NavBar from "../components/NavBar";
 import ContentContainer from "../components/ContentContainer";
+import AuthGuard from "../components/AuthGuard";
 
 const MyApp = ({ Component, pageProps }) => {
 
@@ -16,8 +17,15 @@ const MyApp = ({ Component, pageProps }) => {
             </Head>
             <main>
                 <NavBar />
-                <ContentContainer> 
-                    <Component {...pageProps} />
+                <ContentContainer>
+                    {Component.requireAuth ?
+                        <AuthGuard>
+                            <Component {...pageProps} />
+                        </AuthGuard>
+                        :
+                        <Component {...pageProps} />
+                    }
+                    
                 </ContentContainer>
             </main>
         </ThemeProvider>
