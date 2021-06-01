@@ -8,7 +8,7 @@ export function AuthGuard({ children }) {
 
     useEffect(() => {
         if (userToken === '')
-            Router.push('/signup');
+            Router.push('/login');
     });
     
     return (
