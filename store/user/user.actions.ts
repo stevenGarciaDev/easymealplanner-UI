@@ -30,10 +30,11 @@ export const login = (loginForm: LoginFormType) => async (dispatch) => {
 
 export const register = (registerForm: RegisterFormType) => async (dispatch) => {
     try {
-        const { username, jwt } = await registerUserAsync(registerForm);
+        const response = await registerUserAsync(registerForm);
+        const { username, jwt } = response;
+        if (!username || !jwt) throw new Error(response.message);
         dispatch(authenticateSuccess(username, jwt));
     } catch (error) {
-        console.log("unable to register an account");
-        dispatch(setUserErrorMessage("Unable to register an account."));
+        dispatch(setUserErrorMessage(error.message));
     }
 }
