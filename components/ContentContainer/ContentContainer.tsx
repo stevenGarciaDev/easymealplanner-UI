@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUserToken } from "../../store/user/user.selectors";
 
 type ContentProps = {
@@ -19,7 +19,8 @@ const Content = styled.div<ContentProps>`
     }
 `;
 
-const ContentContainer = ({ userToken, children }) => {
+const ContentContainer = ({ children }) => {
+    const userToken = useSelector(selectUserToken);
     return (
         <Content
             isAuthenticated={userToken !== ''}
@@ -30,8 +31,4 @@ const ContentContainer = ({ userToken, children }) => {
     );
 }
 
-const mapStateToProps = (state) => ({
-    userToken: selectUserToken(state),
-});
-
-export default connect(mapStateToProps)(ContentContainer);
+export default ContentContainer;
