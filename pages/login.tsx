@@ -12,15 +12,15 @@ import {
 } from "../shared/styles/forms";
 import { Button } from "../shared/styles/buttons";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { connect } from "react-redux";
-import { loginUser } from "../store/user/user.actions";
+import { useDispatch } from "react-redux";
 
-const Login = ({ performLoginUser }) => {
+const Login = () => {
     const [form, setForm] = useState({
-        email: '',
+        username: '',
         password: ''
     });
     const [isLoading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,11 +32,10 @@ const Login = ({ performLoginUser }) => {
         e.preventDefault();
         setLoading(true);
 
-        performLoginUser();
         Router.push("/recipes-index");
     }
 
-    const { email, password } = form;
+    const { username, password } = form;
     return (
         <>
             <Head>
@@ -49,13 +48,13 @@ const Login = ({ performLoginUser }) => {
                     <FormSubheadline>Welcome back, let's get you some food.</FormSubheadline>
                     <AuthForm onSubmit={handleSubmit}>
                         <FormControl>
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="username">User name</Label>
                             <Input
-                                type="email"
-                                name="email"
-                                value={email}
+                                type="username"
+                                name="username"
+                                value={username}
                                 onChange={handleChange}
-                                id="email"
+                                id="username"
                             />
                         </FormControl>
                         <FormControl>
@@ -78,8 +77,4 @@ const Login = ({ performLoginUser }) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    performLoginUser: () => dispatch(loginUser())
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;
