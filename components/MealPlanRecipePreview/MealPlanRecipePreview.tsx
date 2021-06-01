@@ -41,6 +41,7 @@ const ChooseButton = styled(Button)`
     }
 
     &:hover {
+        border: none;
         background-color: var(--color-primary);
         color: white;
     }
@@ -49,7 +50,6 @@ const ChooseButton = styled(Button)`
 type MealPlanRecipePreviewProps = {
     chosenRecipe?: boolean;
 }
-
 
 const MealPlanRecipePreview = ({ chosenRecipe = false }) => {
     return (
