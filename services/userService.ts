@@ -22,4 +22,6 @@ export async function loginUserAsync(loginForm: LoginFormType) {
         body: JSON.stringify(loginForm),
         headers: { 'Content-Type': 'application/json' }
     });
+    const data = await response.json();
+    return data;
 }
