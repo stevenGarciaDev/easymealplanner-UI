@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Head from 'next/head';
-import Router from "next/router";
 import styled from "styled-components";
 import {
     FormHeadline,
@@ -11,12 +10,14 @@ import {
     Input
 } from "../shared/styles/forms";
 import { Button } from "../shared/styles/buttons";
+import { ErrorText } from "../shared/styles/errorText";
 import { register, setUserErrorMessage} from "../store/user/user.actions";
 import { selectUserToken, selectUserErrorMessage } from "../store/user/user.selectors";
 import { selectLoadingStatus } from "../store/loading/loading.selector";
 import { startLoadingAnimation, stopLoadingAnimation } from "../store/loading/loading.actions";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingSpinner from "../components/LoadingSpinner";
+
 
 const Center = styled.div`
     align-items: center;
@@ -25,13 +26,6 @@ const Center = styled.div`
     height: calc(100vh - 200px);
     justify-content: center;
     width: 100%;
-`;
-
-const ErrorText = styled.h2`
-    color: maroon;
-    font-size: 2.6rem;
-    font-style: italic;
-    margin: 10px;
 `;
 
 const SignUp = () => {
@@ -69,12 +63,7 @@ const SignUp = () => {
             dispatch(setUserErrorMessage('Please fill in all form fields.'));
             return;
         }
-        
-        dispatch(startLoadingAnimation());
         dispatch(register(form));
-        
-        dispatch(stopLoadingAnimation());
-        Router.push("/recipes-index");
     }
 
     const { username, email, password } = form;
