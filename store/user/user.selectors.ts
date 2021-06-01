@@ -6,3 +6,8 @@ export const selectUserToken = createSelector(
     [selectUser],
     (user) => user.token
 );
+
+export const selectUserErrorMessage = createSelector(
+    [selectUser],
+    (user) => user.errorMessage
+);

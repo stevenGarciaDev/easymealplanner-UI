@@ -1,5 +1,5 @@
-export const UserTypes = {
-    SIGNUP: 'SIGNUP',
-    LOGIN: 'LOGIN',
-    LOGOUT: 'LOGOUT'
+export const UserActionTypes = {
+    AUTHENTICATE_SUCCESS: 'AUTHENTICATE_SUCCESS',
+    LOGOUT: 'LOGOUT',
+    SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE'
 };
