@@ -1,7 +1,7 @@
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
-import { connect } from "react-redux";
 import { selectSidebarStatus } from "../../store/sidebar/sidebar.selectors";
 import { openSidebar, closeSidebar } from "../../store/sidebar/sidebar.actions";
 
@@ -44,30 +44,34 @@ const Title = styled.h2`
     position: relative;
 `;
 
-const MobileTopNavbar = ({ isSidebarOpen, open, close }) => {
+const MobileTopNavbar = () => {
+    const isSidebarOpen = useSelector(selectSidebarStatus);
+    const dispatch = useDispatch();
+
+    const handleOpen = () => {
+        dispatch(openSidebar());
+    }
+
+    const handleClose = () => {
+        dispatch(closeSidebar());
+    }
+
     return (
         <Container>
             <Title>Easy Meal Planner</Title>
             {isSidebarOpen ? 
                     <CloseSidebarIcon
-                        onClick={close}
+                        onClick={handleClose}
                     />
                 : 
                     <OpenSidebarIcon
-                        onClick={open}
+                        onClick={handleOpen}
                     />
             }
         </Container>
     );
 }
 
-const mapStateToProps = (state) => ({
-    isSidebarOpen: selectSidebarStatus(state)
-});
 
-const mapDispatchToProps = (dispatch) => ({
-    open: () => dispatch(openSidebar()),
-    close: () => dispatch(closeSidebar())
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(MobileTopNavbar);
+export default MobileTopNavbar;
