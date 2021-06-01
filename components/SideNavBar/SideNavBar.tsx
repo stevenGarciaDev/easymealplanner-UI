@@ -6,7 +6,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
 import { MdAccountCircle } from "react-icons/md";
 import { Button } from "../../shared/styles/buttons";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectSidebarStatus } from "../../store/sidebar/sidebar.selectors";
 
 type NavProps = {
@@ -78,72 +78,72 @@ const NavText = styled.span`
   padding-left: 10px;
 `;
 
-const SideNavBar = ({ isSidebarOpen }) => (
-  <Nav isSidebarOpen={isSidebarOpen}>
-      <div>
-        <NavTitle>Easy Meal Planner</NavTitle>
-      </div>
-      <NavItemsContainer>
-        <SectionLinksContainer>
-          <Link href="/create-recipe" passHref>
-            <Button>Add Recipe</Button>
-          </Link>
-        </SectionLinksContainer>
-        <NavSectionTitle>Discover</NavSectionTitle>
-        <SectionLinksContainer>
-          <div>
-            <Link href="/recipes-index" passHref>
-              <NavLink>
-                <IoFastFood />
-                <NavText>Recipes</NavText>
-              </NavLink>
-            </Link>
-          </div>
-        </SectionLinksContainer>
-        <NavSectionTitle>Meal Prep</NavSectionTitle>
-        <SectionLinksContainer>
-          <div>
-            <Link href="/meal-plan" passHref>
-              <NavLink>
-                <GiCookingPot />
-                <NavText>Meal Plan</NavText>
-              </NavLink>
-            </Link>
-          </div>
-          <div>
-            <Link href="/grocery-list" passHref>
-              <NavLink>
-                <FaShoppingCart />
-                <NavText>Shopping List</NavText>
-              </NavLink>
-            </Link>
-          </div>
-        </SectionLinksContainer>
-        <NavSectionTitle>Settings</NavSectionTitle>
-        <SectionLinksContainer>
-          <div>
-            <Link href="/account" passHref>
-              <NavLink>
-                <MdAccountCircle />
-                <NavText>Account</NavText>
-              </NavLink>
-            </Link>
-          </div>
-          <div>
-            <Link href="/grocery-list" passHref>
-              <NavLink>
-                <BiLogOutCircle />
-                <NavText>Logout</NavText>
-              </NavLink>
-            </Link>
-          </div>
-        </SectionLinksContainer>
-      </NavItemsContainer>
-  </Nav>
-);
+const SideNavBar = () => {
+  const isSidebarOpen = useSelector(selectSidebarStatus);
 
-const mapStateToProps = (state) => ({
-  isSidebarOpen: selectSidebarStatus(state)
-});
+  return (
+    <Nav isSidebarOpen={isSidebarOpen}>
+        <div>
+          <NavTitle>Easy Meal Planner</NavTitle>
+        </div>
+        <NavItemsContainer>
+          <SectionLinksContainer>
+            <Link href="/create-recipe" passHref>
+              <Button>Add Recipe</Button>
+            </Link>
+          </SectionLinksContainer>
+          <NavSectionTitle>Discover</NavSectionTitle>
+          <SectionLinksContainer>
+            <div>
+              <Link href="/recipes-index" passHref>
+                <NavLink>
+                  <IoFastFood />
+                  <NavText>Recipes</NavText>
+                </NavLink>
+              </Link>
+            </div>
+          </SectionLinksContainer>
+          <NavSectionTitle>Meal Prep</NavSectionTitle>
+          <SectionLinksContainer>
+            <div>
+              <Link href="/meal-plan" passHref>
+                <NavLink>
+                  <GiCookingPot />
+                  <NavText>Meal Plan</NavText>
+                </NavLink>
+              </Link>
+            </div>
+            <div>
+              <Link href="/grocery-list" passHref>
+                <NavLink>
+                  <FaShoppingCart />
+                  <NavText>Shopping List</NavText>
+                </NavLink>
+              </Link>
+            </div>
+          </SectionLinksContainer>
+          <NavSectionTitle>Settings</NavSectionTitle>
+          <SectionLinksContainer>
+            <div>
+              <Link href="/account" passHref>
+                <NavLink>
+                  <MdAccountCircle />
+                  <NavText>Account</NavText>
+                </NavLink>
+              </Link>
+            </div>
+            <div>
+              <Link href="/grocery-list" passHref>
+                <NavLink>
+                  <BiLogOutCircle />
+                  <NavText>Logout</NavText>
+                </NavLink>
+              </Link>
+            </div>
+          </SectionLinksContainer>
+        </NavItemsContainer>
+    </Nav>
+  );
+};
 
-export default connect(mapStateToProps)(SideNavBar);
+export default SideNavBar;
