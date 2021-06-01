@@ -6,6 +6,7 @@ import { GlobalStyle, theme } from '../shared/theme';
 import NavBar from "../components/NavBar";
 import ContentContainer from "../components/ContentContainer";
 import AuthGuard from "../components/AuthGuard";
+import NoDuplicateAuthGuard from "../components/NoDuplicateAuthGuard";
 
 const MyApp = ({ Component, pageProps }) => {
 
@@ -23,9 +24,10 @@ const MyApp = ({ Component, pageProps }) => {
                             <Component {...pageProps} />
                         </AuthGuard>
                         :
-                        <Component {...pageProps} />
+                        <NoDuplicateAuthGuard>
+                            <Component {...pageProps} />
+                        </NoDuplicateAuthGuard>
                     }
-                    
                 </ContentContainer>
             </main>
         </ThemeProvider>
