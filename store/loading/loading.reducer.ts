@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   isLoading: false,
 };
 
-const LoadingReducer = (state = INITIAL_STATE, action) => {
+export const loaderReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LoadingActionTypes.START_LOADING:
       return {
@@ -20,5 +20,3 @@ const LoadingReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 };
-
-export default LoadingReducer;
