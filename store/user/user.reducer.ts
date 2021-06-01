@@ -31,7 +31,8 @@ export const userReducer = (state: UserReducerType = initialState, action) => {
             };
         case UserActionTypes.LOGOUT:
             return {
-                state: initialState
+                state: initialState,
+                token: ''
             }
         default:
             return state;

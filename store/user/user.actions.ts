@@ -11,6 +11,10 @@ export const authenticateSuccess = (name, token) => ({
     }
 });
 
+export const logoutUser = () => ({
+    type: UserActionTypes.LOGOUT
+})
+
 export const setUserErrorMessage = (message) => ({
     type: UserActionTypes.SET_ERROR_MESSAGE,
     payload: {
@@ -21,10 +25,11 @@ export const setUserErrorMessage = (message) => ({
 export const login = (loginForm: LoginFormType) => async (dispatch) => {
     try {
         const response = await loginUserAsync(loginForm);
-        console.log("response", response);
-        dispatch(authenticateSuccess("test", "123"));
+        const { username, jwt } = response;
+        if (!username || !jwt) throw new Error(response.message);
+        dispatch(authenticateSuccess(username, jwt));
     } catch (error) {
-        dispatch(setUserErrorMessage("Unable to login"));
+        dispatch(setUserErrorMessage(error.message));
     }
 }
 

@@ -8,6 +8,8 @@ import { MdAccountCircle } from "react-icons/md";
 import { Button } from "../../shared/styles/buttons";
 import { useSelector } from "react-redux";
 import { selectSidebarStatus } from "../../store/sidebar/sidebar.selectors";
+import { logoutUser } from "../../store/user/user.actions";
+import { useDispatch } from "react-redux";
 
 type NavProps = {
   isSidebarOpen: boolean;
@@ -80,6 +82,11 @@ const NavText = styled.span`
 
 const SideNavBar = () => {
   const isSidebarOpen = useSelector(selectSidebarStatus);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  }
 
   return (
     <Nav isSidebarOpen={isSidebarOpen}>
@@ -133,8 +140,8 @@ const SideNavBar = () => {
               </Link>
             </div>
             <div>
-              <Link href="/grocery-list" passHref>
-                <NavLink>
+              <Link href="/login" passHref>
+                <NavLink onClick={handleLogout}>
                   <BiLogOutCircle />
                   <NavText>Logout</NavText>
                 </NavLink>
