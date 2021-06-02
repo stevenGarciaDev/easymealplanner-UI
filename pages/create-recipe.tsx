@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUserToken } from "../store/user/user.selectors";
 import Head from 'next/head';
 import { FormControl } from "../shared/styles/forms";
 import styled from "styled-components";
@@ -66,11 +68,11 @@ const CreateRecipe = () => {
     const [instructions, setInstructions] = useState<string[]>([]);
     const [possibleUnits, setUnits] = useState<string[]>([]);
     const [image, setImage] = useState<File>(null);
+    const userToken = useSelector(selectUserToken);
 
-    useEffect(() => {       
-        getPossibleUnitsAsync()
+    useEffect(() => {      
+        getPossibleUnitsAsync(userToken)
             .then(units => {
-                console.log("units", units);
                 setUnits(units);
             })
             .catch(error => setUnits([]));
@@ -169,7 +171,7 @@ const CreateRecipe = () => {
                         <Input type="text" name="description" id="description" value={description} onChange={handleChange} />
                     </FormControl>
                     <FormControl>
-                        <Label>List the ingredients needed for one serving.</Label>
+                        <Label>List the ingredients needed for one serving size.</Label>
                         <IngredientInput
                             ingredients={ingredients}
                             addIngredient={addIngredient}
