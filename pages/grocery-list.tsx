@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
+import { selectUserName } from "../store/user/user.selectors";
 import Head from 'next/head';
 import styled from "styled-components";
 import GroceryListItem from "../components/GroceryListItem";
+
 
 const Page = styled.div`
     font-family: 'Amaranth', sans-serif;
@@ -54,72 +57,76 @@ const SectionTitle = styled.h2`
     margin: 10px;
 `;
 
-const GroceryList = () => (
-    <>
-        <Head>
-            <title>EasyMealPlanner | Grocery List</title>
-        </Head>
-        <Page>
-            <GroceryListTitle>Steven's Grocery List</GroceryListTitle>
-            <Subheadline>Generated based on your meal plan.</Subheadline>
-            <GroceryListContainer>
-                <SectionTitleContainer>
-                    <SectionTitle>Herbs and Spices</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+const GroceryList = () => {
+    const userName = useSelector(selectUserName);
 
-                <SectionTitleContainer>
-                    <SectionTitle>Baking and Cooking</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+    return (
+        <>
+            <Head>
+                <title>EasyMealPlanner | Grocery List</title>
+            </Head>
+            <Page>
+                <GroceryListTitle>{`${userName}'s`} Grocery List</GroceryListTitle>
+                <Subheadline>Generated based on your meal plan.</Subheadline>
+                <GroceryListContainer>
+                    <SectionTitleContainer>
+                        <SectionTitle>Herbs and Spices</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
 
-                <SectionTitleContainer>
-                    <SectionTitle>Dairy</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+                    <SectionTitleContainer>
+                        <SectionTitle>Baking and Cooking</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
 
-                <SectionTitleContainer>
-                    <SectionTitle>Meat</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+                    <SectionTitleContainer>
+                        <SectionTitle>Dairy</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
 
-                <SectionTitleContainer>
-                    <SectionTitle>Beans and Grains</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+                    <SectionTitleContainer>
+                        <SectionTitle>Meat</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
 
-                <SectionTitleContainer>
-                    <SectionTitle>Canned</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+                    <SectionTitleContainer>
+                        <SectionTitle>Beans and Grains</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
 
-                <SectionTitleContainer>
-                    <SectionTitle>Condiments</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+                    <SectionTitleContainer>
+                        <SectionTitle>Canned</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
 
-                <SectionTitleContainer>
-                    <SectionTitle>Frozen Foods</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
+                    <SectionTitleContainer>
+                        <SectionTitle>Condiments</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
 
-                <SectionTitleContainer>
-                    <SectionTitle>Produce</SectionTitle>
-                </SectionTitleContainer>
-                <GroceryListItem isChecked={false} name="Apple" />
-                <GroceryListItem isChecked={true} name="Banana" />
-            </GroceryListContainer>
-        </Page>
-    </>
-);
+                    <SectionTitleContainer>
+                        <SectionTitle>Frozen Foods</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
+
+                    <SectionTitleContainer>
+                        <SectionTitle>Produce</SectionTitle>
+                    </SectionTitleContainer>
+                    <GroceryListItem isChecked={false} name="Apple" />
+                    <GroceryListItem isChecked={true} name="Banana" />
+                </GroceryListContainer>
+            </Page>
+        </>
+    );
+};
 
 GroceryList.requireAuth = true;
 

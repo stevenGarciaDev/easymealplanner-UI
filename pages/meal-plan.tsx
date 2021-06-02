@@ -1,5 +1,7 @@
-import Head from 'next/head';
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUserName } from "../store/user/user.selectors";
+import Head from 'next/head';
 import styled from "styled-components";
 import MealPlanRecipePreview from "../components/MealPlanRecipePreview";
 
@@ -66,6 +68,7 @@ const FirstMealName = styled(MealName)`
 
 const MealPlan = () => {
     const [selectedDay, selectDay] = useState(1);
+    const userName = useSelector(selectUserName);
 
     return (
         <>
@@ -73,7 +76,7 @@ const MealPlan = () => {
                 <title>EasyMealPlanner | Meal Plan</title>
             </Head>
             <Page>
-                <MealPlanTitle>Steven's Meal Plan</MealPlanTitle>
+                <MealPlanTitle>{`${userName}'s`} Meal Plan</MealPlanTitle>
                 <MealPlanDays>
                     <Day
                         dayOfWeek={1}
