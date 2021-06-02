@@ -85,6 +85,7 @@ const SideNavBar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
+    dispatch({ type: 'USER_LOGOUT '});
     dispatch(logoutUser());
   }
 
