@@ -1,22 +1,19 @@
-import { applyMiddleware, createStore, Store } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { rootReducer } from "./rootReducer";
-import { createWrapper, MakeStore } from "next-redux-wrapper";
-
-import { UserReducerType } from "./user/user.reducer";
-import { SidebarReducerType } from "./sidebar/sidebar.reducer";
-
-export type State = {
-    user: UserReducerType;
-    sidebar: SidebarReducerType;
-};
+import { persistorReducer } from "./rootReducer";
+import { createWrapper } from "next-redux-wrapper";
+import { persistStore } from 'redux-persist';
 
 const middlewares = [thunk];
 
-const makeStore =  () => createStore(
-    rootReducer,
+const makeStore = () => createStore(
+    persistorReducer,
     composeWithDevTools(applyMiddleware(...middlewares))
 );
+
+const storeInstance = makeStore();
+
+export const persistor = persistStore(storeInstance);
 
 export const wrapper = createWrapper(makeStore, { debug: true });
