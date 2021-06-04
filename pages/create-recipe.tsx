@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Label, Input } from "../shared/styles/forms";
 import IngredientInput from "../components/IngredientInput";
 import IngredientFormList from "../components/IngredientFormList";
+import MacroNutrientInput from "../components/MacroNutrientInput";
 import Instruction from "../components/Instruction";
 import ImageDropzone from "../components/ImageDropzone";
 import { Ingredient } from "../shared/types/Ingredient";
@@ -25,7 +26,7 @@ const Page = styled.div`
     width: 100%;
 
     @media screen and (min-width: 1200px) {
-        margin-top: 7%;
+        margin-top: 3%;
     }
 `;
 
@@ -62,6 +63,9 @@ const CreateRecipe = () => {
     const [recipeForm, setRecipeForm] = useState({
         name: '',
         description: '',
+        protein: 0,
+        carbs: 0,
+        fat: 0,
         currentInstruction: ''
     });
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -70,7 +74,7 @@ const CreateRecipe = () => {
     const [image, setImage] = useState<File>(null);
     const userToken = useSelector(selectUserToken);
 
-    useEffect(() => {      
+    useEffect(() => {
         getPossibleUnitsAsync(userToken)
             .then(units => {
                 setUnits(units);
@@ -81,25 +85,25 @@ const CreateRecipe = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setRecipeForm(
-            {...recipeForm, [name]: value }
+            { ...recipeForm, [name]: value }
         );
     }
 
     const addIngredient = (ingredient: Ingredient) => {
-        const updatedIngredients = [ ingredient, ...ingredients ];
+        const updatedIngredients = [ingredient, ...ingredients];
         setIngredients(updatedIngredients);
     }
 
     const removeIngredient = (name: string) => {
-       const updatedIngredients = ingredients.filter((i) => i.ingredientName != name);
-       setIngredients(updatedIngredients);
+        const updatedIngredients = ingredients.filter((i) => i.ingredientName != name);
+        setIngredients(updatedIngredients);
     }
 
     const addInstruction = () => {
         const { currentInstruction } = recipeForm;
         if (!currentInstruction) return;
         setInstructions([...instructions, currentInstruction]);
-        setRecipeForm({...recipeForm, currentInstruction: '' });
+        setRecipeForm({ ...recipeForm, currentInstruction: '' });
     }
 
     const keyPressAddInstruction = (e) => {
@@ -116,7 +120,7 @@ const CreateRecipe = () => {
     const isValidForSubmission = () => {
         const { name, description } = recipeForm;
 
-        return (name.length > 0 
+        return (name.length > 0
             && description.length > 0
             && instructions.length > 0
             && ingredients.length > 0
@@ -129,10 +133,13 @@ const CreateRecipe = () => {
             name: '',
             description: '',
             currentInstruction: '',
+            protein: 0,
+            carbs: 0,
+            fat: 0
         });
         setImage(null);
         setIngredients([]);
-        setInstructions([]); 
+        setInstructions([]);
     }
 
     const handleSubmit = async (e) => {
@@ -141,19 +148,22 @@ const CreateRecipe = () => {
         if (!isValidForSubmission()) {
             return;
         }
-        const { name, description } = recipeForm;
+        const { name, description, protein, carbs, fat } = recipeForm;
 
         await createRecipeAsync({
             name,
             description,
             ingredients,
             instructions,
-        });
+            protein,
+            carbs,
+            fat
+        }, image, userToken);
 
         resetAllFields();
     }
 
-    const { name, description, currentInstruction } = recipeForm;
+    const { name, description, currentInstruction, protein, carbs, fat } = recipeForm;
     return (
         <>
             <Head>
@@ -178,6 +188,15 @@ const CreateRecipe = () => {
                             possibleUnits={possibleUnits}
                         />
                         <IngredientFormList ingredients={ingredients} removeIngredient={removeIngredient} />
+                    </FormControl>
+                    <FormControl>
+                        <Label>Specify the macronutrients for one serving size.</Label>
+                        <MacroNutrientInput
+                            handleInputChange={handleChange}
+                            protein={protein}
+                            carbs={carbs}
+                            fat={fat}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label htmlFor="currentInstruction">Specify the instructions</Label>
