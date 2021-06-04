@@ -5,4 +5,7 @@ export type RecipeType = {
     description: string;
     instructions: string[];
     ingredients: Ingredient[];
+    protein: number;
+    carbs: number;
+    fat: number;
 };
