@@ -27,14 +27,14 @@ const IncrementServingSize = styled.div`
     cursor: pointer;
 `;
 
-const ServingSizeAdjuster = () => {
+const ServingSizeAdjuster = ({ amount, handleServingChange }) => {
     return (
         <ServingSizeContainer>
             <ServingTitle>Serving Size</ServingTitle>
             <AdjusterContainer>   
-                <DecrementServingSize>-</DecrementServingSize>
-                <div>1</div>
-                <IncrementServingSize>+</IncrementServingSize>
+                <DecrementServingSize onClick={() => handleServingChange(-1)}>-</DecrementServingSize>
+                <div>{amount}</div>
+                <IncrementServingSize onClick={() => handleServingChange(1)}>+</IncrementServingSize>
             </AdjusterContainer>
         </ServingSizeContainer>
     );
