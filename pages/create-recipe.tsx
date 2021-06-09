@@ -15,6 +15,7 @@ import { Button as SubmitButton, AddButton } from "../shared/styles/buttons";
 
 import { createRecipeAsync } from "../services/recipeService";
 import { getPossibleUnitsAsync } from "../services/recipeIngredientService";
+import { ErrorText } from "../shared/styles/errorText";
 
 const Page = styled.div`
     align-items: center;
@@ -59,6 +60,10 @@ const ImageInput = styled.input`
     width: 100%;
 `;
 
+const SuccessText = styled(ErrorText)`
+    color: var(--color-primary);
+`;
+
 const CreateRecipe = () => {
     const [recipeForm, setRecipeForm] = useState({
         name: '',
@@ -72,6 +77,8 @@ const CreateRecipe = () => {
     const [instructions, setInstructions] = useState<string[]>([]);
     const [possibleUnits, setUnits] = useState<string[]>([]);
     const [image, setImage] = useState<File>(null);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const userToken = useSelector(selectUserToken);
 
     useEffect(() => {
@@ -118,13 +125,16 @@ const CreateRecipe = () => {
     }
 
     const isValidForSubmission = () => {
-        const { name, description } = recipeForm;
+        const { name, description, protein, carbs, fat } = recipeForm;
 
         return (name.length > 0
             && description.length > 0
             && instructions.length > 0
             && ingredients.length > 0
-            && image != null)
+            && image != null
+            && (protein >= 0 && protein <= 200)
+            && (carbs >= 0 && carbs <= 200)
+            && (fat >= 0 && carbs <= 200))
             ? true : false;
     }
 
@@ -137,6 +147,7 @@ const CreateRecipe = () => {
             carbs: 0,
             fat: 0
         });
+        setErrorMessage('');
         setImage(null);
         setIngredients([]);
         setInstructions([]);
@@ -146,6 +157,8 @@ const CreateRecipe = () => {
         e.preventDefault();
 
         if (!isValidForSubmission()) {
+            setSuccessMessage('');
+            setErrorMessage('Invalid submission. Please ensure all fields are filled out.');
             return;
         }
         const { name, description, protein, carbs, fat } = recipeForm;
@@ -161,6 +174,7 @@ const CreateRecipe = () => {
         }, image, userToken);
 
         resetAllFields();
+        setSuccessMessage('Successfully created your new recipe');
     }
 
     const { name, description, currentInstruction, protein, carbs, fat } = recipeForm;
@@ -171,6 +185,8 @@ const CreateRecipe = () => {
             </Head>
             <Page>
                 <Headline>Create a New Recipe</Headline>
+                {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+                {successMessage && <SuccessText>{successMessage}</SuccessText>}
                 <RecipeForm onSubmit={handleSubmit} encType="multipart/form-data">
                     <FormControl>
                         <Label htmlFor="name">Recipe Name</Label>
