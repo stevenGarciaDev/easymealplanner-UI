@@ -3,20 +3,20 @@ import styled from "styled-components";
 import Link from "next/link";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const RecipePreview = ({ saved = false }) => {
+const RecipePreview = ({ id, name, imageLink, saved = false }) => {
   const [isSaved, setStatus] = useState(saved);
 
   return (
     <Container>
-      <Link href="/recipe-detail" passHref>
+      <Link href={`/recipe-detail/${name}`} passHref>
         <ImageContainer
-            src="https://en.wikipedia.org/wiki/Taco#/media/File:001_Tacos_de_carnitas,_carne_asada_y_al_pastor.jpg"
-            alt="testing"
+            src={`https://easymealplanner.s3-us-west-1.amazonaws.com/${id}/${imageLink}`}
+            alt={name}
         />
       </Link>
       <TextContainer>
         <TextContent>
-          <p>Tacos</p>
+          <p>{name}</p>
           <Icon>
           <FaHeart />
           </Icon>
@@ -49,13 +49,14 @@ const ImageContainer = styled.img`
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   cursor: pointer;
-  height: 100%;
+  height: 300px;
+  object-fit: cover;
   width: 100%;
 `;
 
 const TextContainer = styled.div`
   border-top: 1px solid #ccc;
-  height: 20%;
+  height: 75px;
   width: 100%;
 `;
 
@@ -68,7 +69,6 @@ const TextContent = styled.div`
   justify-content: space-between;
   margin: 0px 10px;
   position: relative;
-  top: -10px;
 `;
 
 const Icon = styled.div`
