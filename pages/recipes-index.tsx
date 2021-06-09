@@ -1,7 +1,11 @@
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUserToken } from "../store/user/user.selectors";
 import Head from 'next/head';
 import RecipeSearchBar from "../components/RecipeSearchBar";
 import RecipePreview from "../components/RecipePreview";
 import styled from "styled-components";
+import { getPaginatedRecipesAsync } from "../services/recipeService";
 
 const Page = styled.div`
     position: relative;
@@ -30,6 +34,15 @@ const RecipeContainer = styled.div`
 `;
 
 const RecipesIndex = () => {
+    const userToken = useSelector(selectUserToken);
+    const [recipes, setRecipes] = useState([]);
+
+    useEffect(() => {
+        const response = getPaginatedRecipesAsync(0, 6, userToken)
+            .then(data => setRecipes(data));
+            
+    }, []);
+
     return (
         <>
             <Head>
@@ -38,21 +51,18 @@ const RecipesIndex = () => {
             <Page>
                 <RecipeSearchBar />
                 <RecipeContainer>
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
-                    <RecipePreview />
+                    {recipes.length > 0 && 
+                    recipes.map(({ id, name, recipeImages }) => {
+                        const mainImageLink = recipeImages[0].imageLink;
+                        return (
+                            <RecipePreview
+                                key={id}
+                                id={id}
+                                name={name}
+                                imageLink={mainImageLink}
+                            />
+                        )
+                    })}
                 </RecipeContainer>
             </Page>
         </>
