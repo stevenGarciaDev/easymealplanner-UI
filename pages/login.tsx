@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from 'next/head';
+import Link from 'next/link';
 import { Center } from "../shared/styles/center";
 import {
     FormHeadline,
@@ -14,6 +15,15 @@ import { ErrorText } from "../shared/styles/errorText";
 import { setUserErrorMessage, login } from "../store/user/user.actions";
 import { selectUserErrorMessage } from "../store/user/user.selectors";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
+const ResetLink = styled.a`
+    color: dodgerblue;
+    cursor: pointer;
+    font-size: 1.8rem;
+    margin-top: 10px;
+    text-decoration: underline;
+`;
 
 const Login = () => {
     const [form, setForm] = useState({
@@ -82,7 +92,10 @@ const Login = () => {
                         />
                     </FormControl>
                     <Button type="submit">I'm hungry!</Button>
-                </AuthForm>    
+                </AuthForm>
+                <Link href='/reset-password'>
+                    <ResetLink>Forgot user name or password?</ResetLink>
+                </Link>
             </Center>
         </>
     );
