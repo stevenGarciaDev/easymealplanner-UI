@@ -16,3 +16,25 @@ export async function createRecipeAsync(recipeInfo: RecipeType, image: File, tok
         }
     });
 }
+
+export async function getPaginatedRecipesAsync(pageStart: number, pageSize: number, token: string) {
+    const response = await fetch(`${BASE_URL}/recipes?page=${pageStart}&size=${pageSize}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    return data;
+}
+
+export async function getRecipeByName(name: string, token: string) {
+    const response = await fetch(`${BASE_URL}/recipes/${name}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    return data;
+}
