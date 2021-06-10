@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Button } from "../../shared/styles/buttons";
-import ServingSizeAdjuster from "../../components/ServingSizeAdjuster";
-import { getRecipeByName } from "../../services/recipeService";
+import { Button } from "../../../shared/styles/buttons";
+import ServingSizeAdjuster from "../../../components/ServingSizeAdjuster";
 import { useSelector } from "react-redux";
-import { selectUserToken } from "../../store/user/user.selectors";
-import MacronutrientPieChart from "../../components/MacronutrientPieChart";
+import { selectUserToken, selectUserId } from "../../../store/user/user.selectors";
+import { selectSavedRecipeIds } from "../../../store/recipe/recipe.selectors";
+import MacronutrientPieChart from "../../../components/MacronutrientPieChart";
 import fracy from "fracty";
+import { getRecipeByName, saveRecipeAsync, unsaveRecipeAsync } from "../../../services/recipeService";
+import { setSavedRecipes } from "../../../store/recipe/recipe.actions";
 
 const Page = styled.div`
     min-height: 100vh;
@@ -64,7 +67,6 @@ const RecipeImage = styled.img`
 `;
 
 const SaveButton = styled(Button)`
-    margin-bottom: 500px;
 `;
 
 const NutrientBreakdownContainer = styled.div`
@@ -136,8 +138,10 @@ type RecipeInfoType = {
 
 const RecipeDetail = () => {
     const router = useRouter();
-    const { recipeName } = router.query;
+    const { recipeId, recipeName } = router.query;
+    const userId = useSelector(selectUserId);
     const token = useSelector(selectUserToken);
+    const savedRecipeIds = useSelector(selectSavedRecipeIds);
     const [servingSize, setServingSize] = useState(1);
     const [recipe, setRecipe] = useState<RecipeInfoType>({
         id: 0,
@@ -150,12 +154,21 @@ const RecipeDetail = () => {
         recipeIngredients: [],
         recipeImages: '',
     });
+    const [isSaved, setSavedStatus] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // @ts-ignore
         getRecipeByName(recipeName, token)
             .then((recipe) => setRecipe(recipe))
             .catch((error) => console.log("error", error));
+
+        if (savedRecipeIds != null) {
+            // @ts-ignore
+            const index = savedRecipeIds.indexOf(parseInt(recipeId));
+            const isRecipeSaved = (index === -1) ? false : true;
+            setSavedStatus(isRecipeSaved);
+        }
     }, []);
 
     const updateServingSize = (updatedAmount: number) => {
@@ -172,6 +185,19 @@ const RecipeDetail = () => {
 
         const { protein, carbs, fat } = recipe;
         return (protein * caloriesForProtein) + (carbs * caloriesForCarb) + (fat * caloriesForFat);
+    }
+
+    const handleSaveStatus = async () => {
+        if (isSaved) {
+            await unsaveRecipeAsync(userId, recipe.id, token);
+            const updatedRecipeIds = savedRecipeIds.filter((id) => id !== recipe.id);
+            dispatch(setSavedRecipes(updatedRecipeIds));
+        } else {
+            await saveRecipeAsync(userId, recipe.id, token);
+            const recipeIdsCopy = [...savedRecipeIds, recipe.id];
+            dispatch(setSavedRecipes(recipeIdsCopy));
+        }
+        setSavedStatus(!isSaved);
     }
 
     const {
@@ -196,9 +222,10 @@ const RecipeDetail = () => {
                             src={`https://easymealplanner.s3-us-west-1.amazonaws.com/${id}/${recipeImages[0]?.imageLink}`}
                             alt={`${name}`}
                         />
-                        <SaveButton>Save Recipe</SaveButton>
+                        <SaveButton onClick={handleSaveStatus}>
+                            {isSaved ? 'Unsave' : 'Save'} Recipe
+                        </SaveButton>
                     </RecipeImageContainer>
-                    
                 </RecipeDisplayContainer>
             </Section>
             <Section>
@@ -234,7 +261,6 @@ const RecipeDetail = () => {
             <Section>
                 <NutrientBreakdownContainer>
                     <SectionTitle>Macronutrient breakdown</SectionTitle>
-                    
                     <MacronutrientPieChart
                         protein={protein}
                         carbs={carbs}
