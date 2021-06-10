@@ -3,12 +3,28 @@ import styled from "styled-components";
 import Link from "next/link";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const RecipePreview = ({ id, name, imageLink, saved = false }) => {
+const RecipePreview = ({
+  id,
+  name,
+  imageLink,
+  saved = false,
+  saveRecipe,
+  unsaveRecipe
+}) => {
   const [isSaved, setStatus] = useState(saved);
+
+  const handleClick = async () => {
+    if (isSaved) {
+      unsaveRecipe(id);
+    } else {
+      saveRecipe(id);
+    }
+    setStatus(!isSaved);
+  }
 
   return (
     <Container>
-      <Link href={`/recipe-detail/${name}`} passHref>
+      <Link href={`/recipe-detail/${id}/${name}`} passHref>
         <ImageContainer
             src={`https://easymealplanner.s3-us-west-1.amazonaws.com/${id}/${imageLink}`}
             alt={name}
@@ -17,8 +33,8 @@ const RecipePreview = ({ id, name, imageLink, saved = false }) => {
       <TextContainer>
         <TextContent>
           <p>{name}</p>
-          <Icon>
-          <FaHeart />
+          <Icon onClick={handleClick}>
+            {isSaved ? <FaHeart /> : <FaRegHeart />}
           </Icon>
         </TextContent>
       </TextContainer>
