@@ -1,6 +1,7 @@
 import { UserActionTypes } from "./user.types";
 
 export type UserReducerType = {
+    id: number;
     username: string;
     token: string;
     errorMessage: string;
@@ -8,6 +9,7 @@ export type UserReducerType = {
 };
 
 const initialState: UserReducerType = {
+    id: 0,
     username: '',
     token: '',
     errorMessage: '',
@@ -17,10 +19,11 @@ const initialState: UserReducerType = {
 export const userReducer = (state: UserReducerType = initialState, action) => {
     switch (action.type) {
         case UserActionTypes.AUTHENTICATE_SUCCESS:
-            const { username, token } = action.payload;
+            const { id, username, token } = action.payload;
             return {
                 ...state,
                 errorMessage: '',
+                id,
                 username,
                 token
             };
