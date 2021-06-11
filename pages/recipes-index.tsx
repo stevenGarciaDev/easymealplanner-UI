@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserToken, selectUserId } from "../store/user/user.selectors";
-import { selectSavedRecipeIds } from "../store/recipe/recipe.selectors";
+import { selectSavedRecipeIds, selectTotalAmountOfRecipes } from "../store/recipe/recipe.selectors";
 import Head from 'next/head';
 import RecipeSearchBar from "../components/RecipeSearchBar";
 import RecipePreview from "../components/RecipePreview";
@@ -12,6 +12,7 @@ import {
     unsaveRecipeAsync
 } from "../services/recipeService";
 import { setSavedRecipes } from "../store/recipe/recipe.actions";
+import PaginatedPageNumber from "../components/PaginatedPageNumber";
 
 const Page = styled.div`
     position: relative;
@@ -23,7 +24,7 @@ const RecipeContainer = styled.div`
     grid-template-columns: 1fr;
     height: 100%;
     justify-items: center;
-    padding: 150px 10px;
+    padding: 150px 10px 50px 10px;
     grid-gap: 30px;
 
     @media screen and (min-width: 700px) {
@@ -43,13 +44,16 @@ const RecipesIndex = () => {
     const userToken = useSelector(selectUserToken);
     const userId = useSelector(selectUserId);
     const savedRecipeIds = useSelector(selectSavedRecipeIds);
+    const totalNumberOfRecipes = useSelector(selectTotalAmountOfRecipes);
     const [recipes, setRecipes] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
     const dispatch = useDispatch();
+    const amountPerPage = 12;
 
     useEffect(() => {
-        const response = getPaginatedRecipesAsync(0, 6, userToken)
+        const response = getPaginatedRecipesAsync(pageNumber, amountPerPage, userToken)
             .then(data => setRecipes(data));
-    }, []);
+    }, [pageNumber]);
 
     const isRecipeSaved = (recipeIndex) => {
         if (savedRecipeIds === null || savedRecipeIds.length === 0) return false;
@@ -71,6 +75,10 @@ const RecipesIndex = () => {
         dispatch(setSavedRecipes(updatedRecipeIds));
 
         await unsaveRecipeAsync(userId, recipeId, userToken);
+    }
+
+    const updatePage = (page: number) => {
+        setPageNumber(page);
     }
 
     return (
@@ -97,6 +105,12 @@ const RecipesIndex = () => {
                         )
                     })}
                 </RecipeContainer>
+                <PaginatedPageNumber
+                    currentPage={pageNumber}
+                    updatePage={updatePage}
+                    totalNumberOfRecipes={totalNumberOfRecipes}
+                    recipesPerPage={amountPerPage}
+                />
             </Page>
         </>
     );
