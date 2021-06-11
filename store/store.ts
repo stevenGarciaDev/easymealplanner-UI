@@ -7,13 +7,15 @@ import { persistStore } from 'redux-persist';
 
 const middlewares = [thunk];
 
-const makeStore = () => createStore(
-    persistorReducer,
-    composeWithDevTools(applyMiddleware(...middlewares))
-);
-
-const storeInstance = makeStore();
-
-export const persistor = persistStore(storeInstance);
+const makeStore = () => {
+    let storeInstance = createStore(
+        persistorReducer,
+        composeWithDevTools(applyMiddleware(...middlewares))
+    );
+    const persistor = persistStore(storeInstance);
+    // @ts-ignore
+    storeInstance.__persistor = persistor;
+    return storeInstance;
+};
 
 export const wrapper = createWrapper(makeStore, { debug: true });

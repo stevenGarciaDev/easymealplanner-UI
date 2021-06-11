@@ -1,5 +1,5 @@
 import React from 'react';
-import { wrapper, persistor } from "../store/store";
+import { wrapper } from "../store/store";
 import Head from 'next/head';
 import { ThemeProvider } from "styled-components"
 import { GlobalStyle, theme } from '../shared/theme';
@@ -8,8 +8,11 @@ import ContentContainer from "../components/ContentContainer";
 import AuthGuard from "../components/AuthGuard";
 import NoDuplicateAuthGuard from "../components/NoDuplicateAuthGuard";
 import { PersistGate } from 'redux-persist/integration/react';
+import {useStore} from 'react-redux'
+
 
 const MyApp = ({ Component, pageProps }) => {
+    const store = useStore();
 
     return (
         <ThemeProvider theme={theme}>
@@ -18,7 +21,8 @@ const MyApp = ({ Component, pageProps }) => {
                 <title>EasyMealPlanner | Welcome</title>
             </Head>
             <main>
-                <PersistGate persistor={persistor}>
+                { /* @ts-ignore */ }
+                <PersistGate persistor={store.__persistor}>
                     <NavBar />
                     <ContentContainer>
                         {Component.requireAuth ?
