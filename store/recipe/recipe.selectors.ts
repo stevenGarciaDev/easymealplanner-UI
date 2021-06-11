@@ -6,3 +6,8 @@ export const selectSavedRecipeIds = createSelector(
     [selectRecipesSlice],
     (recipe) => recipe.savedRecipeIds
 );
+
+export const selectTotalAmountOfRecipes = createSelector(
+    [selectRecipesSlice],
+    (recipes) => recipes.totalAmount
+);

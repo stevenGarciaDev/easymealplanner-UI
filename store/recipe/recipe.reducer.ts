@@ -3,11 +3,13 @@ import { RecipeActionTypes } from "./recipe.types";
 export type RecipeReducerType = {
     savedRecipeIds: number[];
     recipes: any[];
+    totalAmount: number
 }
 
 const initialState: RecipeReducerType = {
     savedRecipeIds: [],
-    recipes: []
+    recipes: [],
+    totalAmount: 0
 }
 
 export const recipeReducer = (state: RecipeReducerType = initialState, action) => {
@@ -17,6 +19,12 @@ export const recipeReducer = (state: RecipeReducerType = initialState, action) =
             return {
                 ...state,
                 savedRecipeIds: recipes
+            };
+        case RecipeActionTypes.SET_TOTAL_NUMBER_OF_RECIPES:
+            const { total } = action.payload;
+            return {
+                ...state,
+                totalAmount: total
             };
         default:
             return state;

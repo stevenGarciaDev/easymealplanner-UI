@@ -1,5 +1,9 @@
 import { RecipeActionTypes } from "./recipe.types";
-import { getSavedRecipesAsync, saveRecipeAsync } from "../../services/recipeService";
+import {
+    getSavedRecipesAsync,
+    saveRecipeAsync,
+    getTotalNumberOfRecipesAsync
+} from "../../services/recipeService";
 
 export const setSavedRecipes = (recipes) => ({
     type: RecipeActionTypes.SET_SAVED_RECIPES,
@@ -7,6 +11,22 @@ export const setSavedRecipes = (recipes) => ({
         recipes
     }
 });
+
+export const setTotalNumberOfRecipes = (amount: number) => ({
+    type: RecipeActionTypes.SET_TOTAL_NUMBER_OF_RECIPES,
+    payload: {
+        total: amount
+    }
+});
+
+export const getTotalNumberOfRecipes = (token: string) => async (dispatch) => {
+    try {
+        const response = await getTotalNumberOfRecipesAsync(token);
+        dispatch(setTotalNumberOfRecipes(response));
+    } catch (error) {
+        console.log("error", error);
+    }
+}
 
 export const getSavedRecipes = (customerId, token) => async (dispatch) => {
     try {

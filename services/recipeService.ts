@@ -67,3 +67,14 @@ export async function getRecipeByName(name: string, token: string) {
     const data = await response.json();
     return data;
 }
+
+export async function getTotalNumberOfRecipesAsync(token: string) {
+    const response = await fetch(`${BASE_URL}/recipes/total-count`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    return data;
+}
