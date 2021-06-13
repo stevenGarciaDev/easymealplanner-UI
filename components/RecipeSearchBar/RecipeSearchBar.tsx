@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { MdSearch, MdClose } from "react-icons/md";
+import { getTotalNumberOfRecipesContainingTextAsync } from '../../services/recipeService';
+import { useSelector } from 'react-redux';
+import { selectUserToken } from '../../store/user/user.selectors';
 
 const Container = styled.div`
     display: flex;
@@ -82,7 +85,22 @@ const DeleteTextIcon = styled(MdClose)`
     }
 `;
 
-const RecipeSearchBar = () => {
+type RecipeSearchbBarProps = {
+    getMatchingRecipes: (searchText: string, pageStart: number, pageSize: number) => void;
+    displaySearchResults: (status: boolean) => void;
+    setRecipeAmountBasedOnSearch: (amount: number) => void;
+    setPageNumber: (pageNumber: number) => void;
+    pageSize: number;
+};
+
+const RecipeSearchBar = ({
+    getMatchingRecipes,
+    displaySearchResults,
+    setRecipeAmountBasedOnSearch,
+    setPageNumber,
+    pageSize
+}: RecipeSearchbBarProps) => {
+    const userToken = useSelector(selectUserToken);    
     const [recipeQuery, setRecipeQuery] = useState("");
 
     const doesInputContainText = () => {
@@ -92,16 +110,29 @@ const RecipeSearchBar = () => {
     const handleChange = (event) => {
         const { value } = event.target;
         setRecipeQuery(value);
+
+        if (value === '') {
+            displaySearchResults(false);
+        }
     }
 
     const clearText = (event) => {
         setRecipeQuery("");
+        displaySearchResults(false);
     }
 
-    const handleSubmitQuery = () => {
+    const handleSubmitQuery = async () => {
         if (!doesInputContainText()) return;
-    }
 
+        await getMatchingRecipes(recipeQuery, 0, pageSize);
+
+        const totalMatching = await getTotalNumberOfRecipesContainingTextAsync(recipeQuery, userToken);
+        setRecipeAmountBasedOnSearch(totalMatching);
+
+        setPageNumber(0);
+        
+        displaySearchResults(true);
+    }
 
     return (
         <Container>
@@ -110,7 +141,7 @@ const RecipeSearchBar = () => {
                 <Input 
                     type="text" 
                     name="recipeName" 
-                    placeholder="Search for recipe name" 
+                    placeholder="Search for Recipe Name" 
                     value={recipeQuery}
                     onChange={handleChange}
                 />

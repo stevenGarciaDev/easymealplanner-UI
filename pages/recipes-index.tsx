@@ -8,6 +8,7 @@ import RecipePreview from "../components/RecipePreview";
 import styled from "styled-components";
 import {
     getPaginatedRecipesAsync,
+    getPaginatedRecipesByQueryAsync,
     saveRecipeAsync,
     unsaveRecipeAsync
 } from "../services/recipeService";
@@ -45,20 +46,24 @@ const RecipesIndex = () => {
     const userId = useSelector(selectUserId);
     const savedRecipeIds = useSelector(selectSavedRecipeIds);
     const totalNumberOfRecipes = useSelector(selectTotalAmountOfRecipes);
+
     const [recipes, setRecipes] = useState([]);
+    const [recipesBasedOnSearch, setRecipesBasedOnSearch] = useState([]);
+    const [totalMatchingBasedOnSearch, setRecipeAmountBasedOnSearch] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
+    const [displayingSearchedRecipes, setIsDisplayingSearchedRecipes] = useState(false);
+
     const dispatch = useDispatch();
-    const amountPerPage = 12;
+    const AMOUNT_PER_PAGE = 2;
 
     useEffect(() => {
-        const response = getPaginatedRecipesAsync(pageNumber, amountPerPage, userToken)
+        getPaginatedRecipesAsync(pageNumber, AMOUNT_PER_PAGE, userToken)
             .then(data => setRecipes(data));
     }, [pageNumber]);
 
     const isRecipeSaved = (recipeIndex) => {
         if (savedRecipeIds === null || savedRecipeIds.length === 0) return false;
         const foundIndex = savedRecipeIds.indexOf(recipeIndex);
-        console.log("foundIndex", foundIndex);
 
         return foundIndex !== -1 ? true : false;
     }
@@ -81,16 +86,29 @@ const RecipesIndex = () => {
         setPageNumber(page);
     }
 
+    const getMatchingRecipes = async (searchText: string, pageStart: number, pageSize: number) => {
+        const paginatedMatchedRecipes = await getPaginatedRecipesByQueryAsync(searchText, pageStart, pageSize, userToken);
+        setRecipesBasedOnSearch(paginatedMatchedRecipes);
+    }
+
+    const recipesToDisplay = displayingSearchedRecipes ? recipesBasedOnSearch : recipes;
+    const totalMatchingRecipes = displayingSearchedRecipes ? totalMatchingBasedOnSearch : totalNumberOfRecipes;
     return (
         <>
             <Head>
                 <title>EasyMealPlanner | Recipes</title>
             </Head>
             <Page>
-                <RecipeSearchBar />
+                <RecipeSearchBar
+                    getMatchingRecipes={getMatchingRecipes}
+                    displaySearchResults={setIsDisplayingSearchedRecipes}
+                    setRecipeAmountBasedOnSearch={setRecipeAmountBasedOnSearch}
+                    setPageNumber={setPageNumber}
+                    pageSize={AMOUNT_PER_PAGE}
+                />
                 <RecipeContainer>
-                    {recipes.length > 0 && 
-                    recipes.map(({ id, name, recipeImages }) => {
+                    {recipesToDisplay.length > 0 && 
+                    recipesToDisplay.map(({ id, name, recipeImages }) => {
                         const mainImageLink = recipeImages[0].imageLink;
                         return (
                             <RecipePreview
@@ -108,8 +126,8 @@ const RecipesIndex = () => {
                 <PaginatedPageNumber
                     currentPage={pageNumber}
                     updatePage={updatePage}
-                    totalNumberOfRecipes={totalNumberOfRecipes}
-                    recipesPerPage={amountPerPage}
+                    totalNumberOfRecipes={totalMatchingRecipes}
+                    recipesPerPage={AMOUNT_PER_PAGE}
                 />
             </Page>
         </>
