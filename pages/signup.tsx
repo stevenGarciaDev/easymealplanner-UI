@@ -81,7 +81,7 @@ const SignUp = () => {
                     :
                     <AuthForm onSubmit={handleSubmit}>
                         <FormControl>
-                            <Label htmlFor="username">User name</Label>
+                            <Label htmlFor="username">Username</Label>
                             <Input
                                 type="text"
                                 name="username"

@@ -72,7 +72,7 @@ const Login = () => {
                 {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
                 <AuthForm onSubmit={handleSubmit}>
                     <FormControl>
-                        <Label htmlFor="username">User name</Label>
+                        <Label htmlFor="username">Username</Label>
                         <Input
                             type="username"
                             name="username"
@@ -94,7 +94,7 @@ const Login = () => {
                     <Button type="submit">I'm hungry!</Button>
                 </AuthForm>
                 <Link href='/reset-password'>
-                    <ResetLink>Forgot user name or password?</ResetLink>
+                    <ResetLink>Forgot username or password?</ResetLink>
                 </Link>
             </Center>
         </>
