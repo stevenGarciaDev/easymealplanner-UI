@@ -78,3 +78,25 @@ export async function getTotalNumberOfRecipesAsync(token: string) {
     const data = await response.json();
     return data;
 }
+
+export async function getTotalNumberOfRecipesContainingTextAsync(searchQuery: string, token: string) {
+    const response = await fetch(`${BASE_URL}/recipes/total-count/${searchQuery}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    return data;
+}
+
+export async function getPaginatedRecipesByQueryAsync(queryText: string, pageStart: number, pageSize: number, token: string) {
+    const response = await fetch(`${BASE_URL}/recipes/match/${queryText}?page=${pageStart}&size=${pageSize}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    return data;
+}
