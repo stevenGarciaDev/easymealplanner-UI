@@ -57,13 +57,13 @@ export const PaginatedPageNumber = ({ currentPage, updatePage, totalNumberOfReci
         }
     }
 
-    const calculateLastPagenNumber = () => {
+    const calculateLastPageNumber = () => {
         const remainingPageToAdd = (totalNumberOfRecipes % recipesPerPage > 0) ? 1 : 0;
         const lastPage = Math.floor(totalNumberOfRecipes / recipesPerPage) +  remainingPageToAdd;
         return lastPage;
     }
 
-    const lastPageNumber = calculateLastPagenNumber();
+    const lastPageNumber = calculateLastPageNumber();
     return (
         <Container>
             <LeftPageButton
