@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MdSearch, MdClose } from "react-icons/md";
 import { getTotalNumberOfRecipesContainingTextAsync } from '../../services/recipeService';
@@ -86,30 +86,29 @@ const DeleteTextIcon = styled(MdClose)`
 `;
 
 type RecipeSearchbBarProps = {
-    getMatchingRecipes: (searchText: string, pageStart: number, pageSize: number) => void;
+    searchText: string;
+    setSearchText: (text: string) => void;
     displaySearchResults: (status: boolean) => void;
     setRecipeAmountBasedOnSearch: (amount: number) => void;
     setPageNumber: (pageNumber: number) => void;
-    pageSize: number;
 };
 
 const RecipeSearchBar = ({
-    getMatchingRecipes,
+    searchText,
+    setSearchText,
     displaySearchResults,
     setRecipeAmountBasedOnSearch,
-    setPageNumber,
-    pageSize
+    setPageNumber
 }: RecipeSearchbBarProps) => {
-    const userToken = useSelector(selectUserToken);    
-    const [recipeQuery, setRecipeQuery] = useState("");
+    const userToken = useSelector(selectUserToken);
 
     const doesInputContainText = () => {
-        return (recipeQuery !== null && recipeQuery.length > 0) ? true : false;
+        return (searchText !== null && searchText.length > 0) ? true : false;
     }
 
     const handleChange = (event) => {
         const { value } = event.target;
-        setRecipeQuery(value);
+        setSearchText(value);
 
         if (value === '') {
             displaySearchResults(false);
@@ -117,16 +116,14 @@ const RecipeSearchBar = ({
     }
 
     const clearText = (event) => {
-        setRecipeQuery("");
+        setSearchText("");
         displaySearchResults(false);
     }
 
     const handleSubmitQuery = async () => {
         if (!doesInputContainText()) return;
 
-        await getMatchingRecipes(recipeQuery, 0, pageSize);
-
-        const totalMatching = await getTotalNumberOfRecipesContainingTextAsync(recipeQuery, userToken);
+        const totalMatching = await getTotalNumberOfRecipesContainingTextAsync(searchText, userToken);
         setRecipeAmountBasedOnSearch(totalMatching);
 
         setPageNumber(0);
@@ -142,7 +139,7 @@ const RecipeSearchBar = ({
                     type="text" 
                     name="recipeName" 
                     placeholder="Search for Recipe Name" 
-                    value={recipeQuery}
+                    value={searchText}
                     onChange={handleChange}
                 />
                 <SearchButton onClick={handleSubmitQuery}>Search</SearchButton>

@@ -52,14 +52,19 @@ const RecipesIndex = () => {
     const [totalMatchingBasedOnSearch, setRecipeAmountBasedOnSearch] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
     const [displayingSearchedRecipes, setIsDisplayingSearchedRecipes] = useState(false);
+    const [searchText, setSearchText] = useState('');
 
     const dispatch = useDispatch();
     const AMOUNT_PER_PAGE = 2;
 
     useEffect(() => {
-        getPaginatedRecipesAsync(pageNumber, AMOUNT_PER_PAGE, userToken)
-            .then(data => setRecipes(data));
-    }, [pageNumber]);
+        if (displayingSearchedRecipes) {
+            getMatchingRecipes(searchText, pageNumber, AMOUNT_PER_PAGE);
+        } else {
+            getPaginatedRecipesAsync(pageNumber, AMOUNT_PER_PAGE, userToken)
+                .then(data => setRecipes(data));
+        }
+    }, [pageNumber, displayingSearchedRecipes]);
 
     const isRecipeSaved = (recipeIndex) => {
         if (savedRecipeIds === null || savedRecipeIds.length === 0) return false;
@@ -100,11 +105,11 @@ const RecipesIndex = () => {
             </Head>
             <Page>
                 <RecipeSearchBar
-                    getMatchingRecipes={getMatchingRecipes}
+                    searchText={searchText}
+                    setSearchText={setSearchText}
                     displaySearchResults={setIsDisplayingSearchedRecipes}
                     setRecipeAmountBasedOnSearch={setRecipeAmountBasedOnSearch}
                     setPageNumber={setPageNumber}
-                    pageSize={AMOUNT_PER_PAGE}
                 />
                 <RecipeContainer>
                     {recipesToDisplay.length > 0 && 
