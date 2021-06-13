@@ -16,12 +16,12 @@ export function AuthGuard({ children }) {
         if (userToken === '')
             Router.push('/login');
 
+        
+        dispatch(getTotalNumberOfRecipes(userToken));
+        
+
         if (savedRecipes.length === 0) {
             dispatch(getSavedRecipes(userId, userToken));
-        }
-
-        if (totalNumberOfRecipes === 0) {
-            dispatch(getTotalNumberOfRecipes(userToken));
         }
     }, []);
     
