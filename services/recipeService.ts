@@ -35,8 +35,19 @@ export async function unsaveRecipeAsync(customerId: number, recipeId: number, to
     });
 }
 
-export async function getSavedRecipesAsync(customerId: number, token: string) {
+export async function getSavedRecipeIdsAsync(customerId: number, token: string) {
     const response = await fetch(`${BASE_URL}/saved-recipes/${customerId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    return data;
+}
+
+export async function getPaginatedSavedRecipesAsync(customerId: number, pageStart: number, pageSize: number, token: string) {
+    const response = await fetch(`${BASE_URL}/saved-recipes/all/${customerId}?page=${pageStart}&size=${pageSize}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`

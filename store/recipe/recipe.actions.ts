@@ -1,6 +1,6 @@
 import { RecipeActionTypes } from "./recipe.types";
 import {
-    getSavedRecipesAsync,
+    getSavedRecipeIdsAsync,
     saveRecipeAsync,
     getTotalNumberOfRecipesAsync
 } from "../../services/recipeService";
@@ -30,7 +30,7 @@ export const getTotalNumberOfRecipes = (token: string) => async (dispatch) => {
 
 export const getSavedRecipes = (customerId, token) => async (dispatch) => {
     try {
-        const response = await getSavedRecipesAsync(customerId, token);
+        const response = await getSavedRecipeIdsAsync(customerId, token);
         dispatch(setSavedRecipes(response));
     } catch (error) {
         console.log("error", error);
