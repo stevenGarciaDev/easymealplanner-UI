@@ -111,13 +111,14 @@ const RecipeSearchBar = ({
         setSearchText(value);
 
         if (value === '') {
-            displaySearchResults(false);
+            clearText(event);
         }
     }
 
     const clearText = (event) => {
         setSearchText("");
         displaySearchResults(false);
+        setPageNumber(0);
     }
 
     const handleSubmitQuery = async () => {
