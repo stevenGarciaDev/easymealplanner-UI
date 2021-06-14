@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 import { Button } from "../../shared/styles/buttons";
 
 const Container = styled.div`
@@ -62,9 +63,11 @@ const MealPlanRecipePreview = ({ chosenRecipe = false }) => {
                 <TextContent>Tacos</TextContent>
             </Container>
             }
-            <ChooseButton>
-                {chosenRecipe ? "Change recipe" : "Choose a recipe" }
-            </ChooseButton>
+            <Link href="/choose-recipe/1" passHref>
+                <ChooseButton>
+                    {chosenRecipe ? "Change recipe" : "Choose a recipe" }
+                </ChooseButton>
+            </Link>
         </>
     );
 }
