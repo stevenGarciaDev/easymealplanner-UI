@@ -46,7 +46,19 @@ const RightPageButton = styled(PageButton)<RightPageButtonProps>`
     display: ${(props) => (props.currentPage < props.maxPageNumber - 1) ? 'flex' : 'none'};
 `;
 
-export const PaginatedPageNumber = ({ currentPage, updatePage, totalNumberOfRecipes, recipesPerPage }) => {
+type PaginatedPageNumber = {
+    currentPage: number;
+    updatePage: (pageStart: number) => void;
+    totalNumberOfRecipes: number;
+    recipesPerPage: number;
+}
+
+export const PaginatedPageNumber = ({
+    currentPage,
+    updatePage,
+    totalNumberOfRecipes,
+    recipesPerPage
+}) => {
 
     const handleClick = (direction: string) => {
         if (currentPage === 0 && direction === 'left') return;
