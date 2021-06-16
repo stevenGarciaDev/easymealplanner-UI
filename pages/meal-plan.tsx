@@ -4,6 +4,7 @@ import { selectUserName } from "../store/user/user.selectors";
 import Head from 'next/head';
 import styled from "styled-components";
 import MealPlanRecipePreview from "../components/MealPlanRecipePreview";
+import { selectMealPlan } from "../store/meal-plan/meal-plan.selectors";
 
 const Page = styled.div`
     min-height: 100vh;
@@ -27,8 +28,8 @@ const MealPlanDays = styled.div`
 `;
 
 type DayProps = {
-    dayOfWeek: number;
-    selectedDay: number;
+    dayOfWeek: string;
+    selectedDay: string;
 };
 
 const Day = styled.div<DayProps>`
@@ -67,9 +68,11 @@ const FirstMealName = styled(MealName)`
 `;
 
 const MealPlan = () => {
-    const [selectedDay, selectDay] = useState(1);
+    const [selectedDay, selectDay] = useState("MONDAY");
     const userName = useSelector(selectUserName);
+    const mealPlan = useSelector(selectMealPlan);
 
+    const recipesForTheDay = mealPlan[selectedDay];
     return (
         <>
             <Head>
@@ -79,61 +82,72 @@ const MealPlan = () => {
                 <MealPlanTitle>{`${userName}'s`} Meal Plan</MealPlanTitle>
                 <MealPlanDays>
                     <Day
-                        dayOfWeek={1}
+                        dayOfWeek="MONDAY"
                         selectedDay={selectedDay}
-                        onClick={() => selectDay(1)}
+                        onClick={() => selectDay("MONDAY")}
                     >
                         Monday
                     </Day>
                     <Day
-                        dayOfWeek={2}
+                        dayOfWeek="TUESDAY"
                         selectedDay={selectedDay}
-                        onClick={() => selectDay(2)}
+                        onClick={() => selectDay("TUESDAY")}
                     >
                         Tuesday
                     </Day>
                     <Day
-                        dayOfWeek={3}
+                        dayOfWeek="WEDNESDAY"
                         selectedDay={selectedDay}
-                        onClick={() => selectDay(3)}
+                        onClick={() => selectDay("WEDNESDAY")}
                     >
                         Wednesday
                     </Day>
                     <Day
-                        dayOfWeek={4}
+                        dayOfWeek="THURSDAY"
                         selectedDay={selectedDay}
-                        onClick={() => selectDay(4)}
+                        onClick={() => selectDay("THURSDAY")}
                     >
                         Thursday
                     </Day>
                     <Day
-                        dayOfWeek={5}
+                        dayOfWeek="FRIDAY"
                         selectedDay={selectedDay}
-                        onClick={() => selectDay(5)}
+                        onClick={() => selectDay("FRIDAY")}
                     >
                         Friday
                     </Day>
-
                 </MealPlanDays>
                 <FirstMealName>Breakfast</FirstMealName>
                 <MealSection>
-                    
-                    <MealPlanRecipePreview />
+                    <MealPlanRecipePreview
+                        recipeForMeal={recipesForTheDay[0]}
+                        currentDay={selectedDay}
+                        mealNumber={0}
+                    />
                 </MealSection>
                 <MealName>Lunch</MealName>
                 <MealSection>
-                    
-                    <MealPlanRecipePreview />
+                    <MealPlanRecipePreview
+                        recipeForMeal={recipesForTheDay[1]}
+                        currentDay={selectedDay}
+                        mealNumber={1}
+                    />
                 </MealSection>
                 <MealName>Dinner</MealName>
                 <MealSection>
-                    
-                    <MealPlanRecipePreview />
+                    <MealPlanRecipePreview
+                        recipeForMeal={recipesForTheDay[2]}
+                        currentDay={selectedDay}
+                        mealNumber={2}
+                    />
                 </MealSection>
                 <MealName>Snacks</MealName>
                 <MealSection>
-                    
-                    <MealPlanRecipePreview />
+                    <MealPlanRecipePreview
+                        recipeForMeal={recipesForTheDay[3]}
+                        currentDay={selectedDay}
+                        mealNumber={3}
+                    />
                 </MealSection>
             </Page>
         </>
