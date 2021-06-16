@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { Button } from "../../shared/styles/buttons";
+import { ImageContainer } from "../../shared/styles/recipePreview";
 
 const Container = styled.div`
     border-radius: 5px;
@@ -11,13 +12,6 @@ const Container = styled.div`
     @media screen and (min-width: 600px) {
         width: 500px;
     }
-`;
-
-const ImageLink = styled.div`
-    border: 1px solid orange;
-    cursor: pointer;
-    height: 80%;
-    width: 100%;
 `;
 
 const TextContent = styled.div`
@@ -49,23 +43,30 @@ const ChooseButton = styled(Button)`
 `;
 
 type MealPlanRecipePreviewProps = {
-    chosenRecipe?: boolean;
+    recipeForMeal: any;
+    currentDay: string;
+    mealNumber: number;
 }
 
-const MealPlanRecipePreview = ({ chosenRecipe = false }) => {
+const MealPlanRecipePreview = ({ recipeForMeal, currentDay, mealNumber }) => {
+
+    const recipe = recipeForMeal ? recipeForMeal.recipe : null;
     return (
         <>
-            {chosenRecipe &&
-            <Container>
-                <ImageLink>
-                    image
-                </ImageLink>
-                <TextContent>Tacos</TextContent>
-            </Container>
+            {recipe &&
+                <Container>
+                    <Link href={`/recipe-detail/${recipe.id}/${recipe.name}`} passHref>
+                        <ImageContainer
+                            src={`https://easymealplanner.s3-us-west-1.amazonaws.com/${recipe.id}/${recipe.recipeImages[0].imageLink}`}
+                            alt={recipe.name}
+                        />
+                    </Link>
+                    <TextContent>{recipe.name}</TextContent>
+                </Container>    
             }
-            <Link href="/choose-recipe/1" passHref>
+            <Link href={`/choose-recipe/${currentDay}/${mealNumber}`} passHref>
                 <ChooseButton>
-                    {chosenRecipe ? "Change recipe" : "Choose a recipe" }
+                    {recipe ? "Change recipe" : "Choose a recipe" }
                 </ChooseButton>
             </Link>
         </>

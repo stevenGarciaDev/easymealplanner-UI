@@ -7,6 +7,9 @@ import {
 } from "../../shared/styles/recipePreview";
 import styled from "styled-components";
 import { Button } from "../../shared/styles/buttons";
+import { useSelector } from "react-redux";
+import Router from "next/router";
+import { selectMealPlanId } from "../../store/meal-plan/meal-plan.selectors";
 
 const Preview = styled.div`
     margin-bottom: 70px;
@@ -35,16 +38,34 @@ const ChooseButton = styled(Button)`
     }
 `;
 
+type ChooseRecipePreviewProps = {
+    recipeId: number;
+    name: string;
+    imageLink: string;
+    dayOfTheWeek: string;
+    recipeNumber: number;
+    updateMealPlan: any;
+}
+
 const ChooseRecipePreview = ({
-    id,
+    recipeId,
     name,
-    imageLink
-}) => {
+    imageLink,
+    dayOfTheWeek,
+    recipeNumber,
+    updateMealPlan
+}: ChooseRecipePreviewProps) => {
+    const mealPlanId = useSelector(selectMealPlanId);
+
+    const handleClick = async () => {
+        await updateMealPlan(mealPlanId, recipeId, dayOfTheWeek, recipeNumber);
+    }
+
     return (
         <Preview>
             <Container>
                 <ChoosenImageContainer
-                    src={`https://easymealplanner.s3-us-west-1.amazonaws.com/${id}/${imageLink}`}
+                    src={`https://easymealplanner.s3-us-west-1.amazonaws.com/${recipeId}/${imageLink}`}
                     alt={name}
                 />
                 <ChoosenRecipeTextContainer>
@@ -53,7 +74,7 @@ const ChooseRecipePreview = ({
                     </TextContent>
                 </ChoosenRecipeTextContainer>
             </Container>
-            <ChooseButton>Choose</ChooseButton>
+            <ChooseButton type="button" onClick={handleClick}>Choose</ChooseButton>
         </Preview>
     );
 }
