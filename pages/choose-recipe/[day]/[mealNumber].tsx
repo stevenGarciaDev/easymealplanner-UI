@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import Head from 'next/head';
 import styled from "styled-components";
-import ChooseRecipePreview from "../../components/ChooseRecipePreview";
-import PaginatedPageNumber from "../../components/PaginatedPageNumber";
-import { Page, RecipeContainer } from "../../shared/styles/recipeGrid";
-import RecipeSearchBar from "../../components/RecipeSearchBar";
-import { getPaginatedRecipesByQueryAsync, getPaginatedSavedRecipesAsync } from "../../services/recipeService";
-import { selectUserId, selectUserToken } from "../../store/user/user.selectors";
-import { useSelector } from "react-redux";
-import { selectNumberOfSavedRecipeIds } from "../../store/recipe/recipe.selectors";
+import ChooseRecipePreview from "../../../components/ChooseRecipePreview";
+import PaginatedPageNumber from "../../../components/PaginatedPageNumber";
+import { Page, RecipeContainer } from "../../../shared/styles/recipeGrid";
+import RecipeSearchBar from "../../../components/RecipeSearchBar";
+import { getPaginatedRecipesByQueryAsync, getPaginatedSavedRecipesAsync } from "../../../services/recipeService";
+import { selectUserId, selectUserToken } from "../../../store/user/user.selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { selectNumberOfSavedRecipeIds } from "../../../store/recipe/recipe.selectors";
+import { useRouter } from "next/router";
+import { selectMealPlan } from "../../../store/meal-plan/meal-plan.selectors";
+import { addRecipeToMealPlan } from "../../../store/meal-plan/meal-plan.actions";
 
 const CenterTitle = styled.h1`
     font-size: 2rem;
-    text-align: center;
     position: relative;
+    text-align: center;
     top: 150px;
 `;
 
@@ -22,9 +25,13 @@ const ChooseRecipeContainer = styled(RecipeContainer)`
 `;
 
 const ChooseRecipe = () => {
+    const router = useRouter();
+    const { day, mealNumber } = router.query;
+
     const userToken = useSelector(selectUserToken);
     const userId = useSelector(selectUserId);
     const amountOfSavedRecipes = useSelector(selectNumberOfSavedRecipeIds);
+    const mealPlan = useSelector(selectMealPlan);
 
     const [savedRecipes, setSavedRecipes] = useState([]);
     const [searchText, setSearchText] = useState('');
@@ -32,6 +39,8 @@ const ChooseRecipe = () => {
     const [recipesBasedOnSearch, setRecipesBasedOnSearch] = useState([]);
     const [totalMatchingBasedOnSearch, setRecipeAmountBasedOnSearch] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
+
+    const dispatch = useDispatch();
 
     const AMOUNT_PER_PAGE = 2;
 
@@ -43,6 +52,19 @@ const ChooseRecipe = () => {
         }
         
     }, [pageNumber, displayingSearchedRecipes]);
+
+    const updateMealPlan = async (mealPlanId: number, recipeId: number, dayOfTheWeek: string, recipeNumber: number) => {
+        const newRecipeParam = {
+            mealPlan,
+            mealPlanId,
+            recipeId,
+            dayOfTheWeek,
+            recipeNumber,
+            token: userToken
+        }
+        dispatch(addRecipeToMealPlan(newRecipeParam));
+        setTimeout(() => router.push('/meal-plan'), 500);
+    }
 
     const updatePage = (page: number) => {
         setPageNumber(page);
@@ -81,9 +103,15 @@ const ChooseRecipe = () => {
                         return (
                             <ChooseRecipePreview
                                 key={id}
-                                id={id}
+                                recipeId={id}
                                 name={name}
                                 imageLink={mainImageLink}
+                                mealPlanId={1}
+                                // @ts-ignore
+                                dayOfTheWeek={day}
+                                // @ts-ignore
+                                recipeNumber={parseInt(mealNumber)}
+                                updateMealPlan={updateMealPlan}
                             />
                         )
                     })}
