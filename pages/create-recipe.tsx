@@ -181,7 +181,7 @@ const CreateRecipe = () => {
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Create Recipe</title>
+                <title>EasyMealPlanners | Create Recipe</title>
             </Head>
             <Page>
                 <Headline>Create a New Recipe</Headline>

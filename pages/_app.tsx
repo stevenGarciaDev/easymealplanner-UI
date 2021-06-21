@@ -18,7 +18,7 @@ const MyApp = ({ Component, pageProps }) => {
         <ThemeProvider theme={theme}>
             <GlobalStyle theme={theme} />
             <Head>
-                <title>EasyMealPlanner | Welcome</title>
+                <title>EasyMealPlanners | Welcome</title>
             </Head>
             <main>
                 { /* @ts-ignore */ }

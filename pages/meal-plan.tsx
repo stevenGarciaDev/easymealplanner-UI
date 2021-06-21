@@ -76,7 +76,7 @@ const MealPlan = () => {
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Meal Plan</title>
+                <title>EasyMealPlanners | Meal Plan</title>
             </Head>
             <Page>
                 <MealPlanTitle>{`${userName}'s`} Meal Plan</MealPlanTitle>

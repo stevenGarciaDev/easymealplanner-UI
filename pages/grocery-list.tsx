@@ -63,7 +63,7 @@ const GroceryList = () => {
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Grocery List</title>
+                <title>EasyMealPlanners | Grocery List</title>
             </Head>
             <Page>
                 <GroceryListTitle>{`${userName}'s`} Grocery List</GroceryListTitle>
