@@ -11,7 +11,7 @@ import {
 } from "../shared/styles/forms";
 import { Button } from "../shared/styles/buttons";
 import { ErrorText } from "../shared/styles/errorText";
-import { register, setUserErrorMessage} from "../store/user/user.actions";
+import { login, register, setUserErrorMessage} from "../store/user/user.actions";
 import { selectUserToken, selectUserErrorMessage } from "../store/user/user.selectors";
 import { selectLoadingStatus } from "../store/loading/loading.selector";
 import { startLoadingAnimation, stopLoadingAnimation } from "../store/loading/loading.actions";
@@ -26,6 +26,14 @@ const Center = styled.div`
     height: calc(100vh - 200px);
     justify-content: center;
     width: 100%;
+`;
+
+const DemoButton = styled(Button)`
+    background-color: #FF3400;
+
+    &:hover {
+        background-color: #d62b00;
+    }
 `;
 
 const SignUp = () => {
@@ -66,11 +74,20 @@ const SignUp = () => {
         dispatch(register(form));
     }
 
+    const handleDemoLogin = (e) => {
+        e.preventDefault();
+
+        dispatch(login({
+            username: 'DemoUser',
+            password: 'firstbase'
+        }));
+    }
+
     const { username, email, password } = form;
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Sign up</title>
+                <title>EasyMealPlanners | Sign up</title>
             </Head>
             <Center>
                 <FormHeadline>Sign Up</FormHeadline>
@@ -111,6 +128,7 @@ const SignUp = () => {
                             />
                         </FormControl>
                         <Button type="submit">Let's Eat!</Button>
+                        <DemoButton onClick={handleDemoLogin} type="button">Login as Demo User</DemoButton>
                     </AuthForm>
                 }
             </Center>

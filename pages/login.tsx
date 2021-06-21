@@ -25,6 +25,14 @@ const ResetLink = styled.a`
     text-decoration: underline;
 `;
 
+const DemoButton = styled(Button)`
+    background-color: #FF3400;
+
+    &:hover {
+        background-color: #d62b00;
+    }
+`;
+
 const Login = () => {
     const [form, setForm] = useState({
         username: '',
@@ -60,11 +68,20 @@ const Login = () => {
         dispatch(login(form));
     }
 
+    const handleDemoLogin = (e) => {
+        e.preventDefault();
+
+        dispatch(login({
+            username: 'DemoUser',
+            password: 'firstbase'
+        }));
+    }
+
     const { username, password } = form;
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Login</title>
+                <title>EasyMealPlanners | Login</title>
             </Head>
             <Center>
                 <FormHeadline>Login</FormHeadline>
@@ -92,6 +109,7 @@ const Login = () => {
                         />
                     </FormControl>
                     <Button type="submit">I'm hungry!</Button>
+                    <DemoButton onClick={handleDemoLogin} type="button">Login as Demo User</DemoButton>
                 </AuthForm>
                 <Link href='/reset-password'>
                     <ResetLink>Forgot username or password?</ResetLink>
