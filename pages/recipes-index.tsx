@@ -29,7 +29,7 @@ const RecipesIndex = () => {
     const [searchText, setSearchText] = useState('');
 
     const dispatch = useDispatch();
-    const AMOUNT_PER_PAGE = 2;
+    const AMOUNT_PER_PAGE = 8;
 
     useEffect(() => {
         if (displayingSearchedRecipes) {
@@ -75,7 +75,7 @@ const RecipesIndex = () => {
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Recipes</title>
+                <title>EasyMealPlanners | Recipes</title>
             </Head>
             <Page>
                 <RecipeSearchBar
@@ -89,13 +89,14 @@ const RecipesIndex = () => {
                     {recipesToDisplay.length > 0 && 
                     recipesToDisplay.map(({ id, name, recipeImages }) => {
                         const mainImageLink = recipeImages[0].imageLink;
+                        const savedStatus = isRecipeSaved(id);
                         return (
                             <RecipePreview
                                 key={id}
                                 id={id}
                                 name={name}
                                 imageLink={mainImageLink}
-                                saved={isRecipeSaved(id)}
+                                saved={savedStatus}
                                 saveRecipe={saveRecipe}
                                 unsaveRecipe={unsaveRecipe}
                             />

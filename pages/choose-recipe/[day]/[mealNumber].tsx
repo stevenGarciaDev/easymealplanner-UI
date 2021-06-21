@@ -42,7 +42,7 @@ const ChooseRecipe = () => {
 
     const dispatch = useDispatch();
 
-    const AMOUNT_PER_PAGE = 2;
+    const AMOUNT_PER_PAGE = 8;
 
     useEffect(() => {
         if (displayingSearchedRecipes) {
@@ -86,7 +86,7 @@ const ChooseRecipe = () => {
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Choose Recipe</title>
+                <title>EasyMealPlanners | Choose Recipe</title>
             </Head>
             <Page>
                 <RecipeSearchBar
