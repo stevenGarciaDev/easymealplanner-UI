@@ -49,7 +49,7 @@ const ResetPassword = () => {
                 </>
                 :
                 <>
-                    <FormSubheadline>Recover your user name and reset your password.</FormSubheadline>
+                    <FormSubheadline>Recover your username and reset your password.</FormSubheadline>
                     <AuthForm onSubmit={handleSubmit}>
                         <FormControl>
                             <Label>Email</Label>
