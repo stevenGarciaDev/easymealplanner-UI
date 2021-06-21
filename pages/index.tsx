@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import styled from "styled-components";
 import { Button } from "../shared/styles/buttons";
 import Card from "../components/CardMembership";
@@ -77,17 +78,19 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>EasyMealPlanner | Homepage</title>
+                <title>EasyMealPlanners | Homepage</title>
             </Head>
             <Page>
                 <Header>
                     <div className="content">
                         <h2>We make meal planning easy.</h2>
                         <h3>Choose delicious recipes and prep for your week.</h3>
-                        <GetStartedButton type="button">Get Started</GetStartedButton>
+                        <Link href="/signup" passHref>
+                            <GetStartedButton type="button">Get Started</GetStartedButton>
+                        </Link>
                     </div>
                 </Header>
-                <MembershipOptionsContainer>
+                {/* <MembershipOptionsContainer>
                     <Card 
                         plan="Bronze"
                         price="Free"
@@ -124,7 +127,7 @@ export default function Index() {
                         ]}
                         backgroundColor="#00c3e6"
                     />
-                </MembershipOptionsContainer>
+                </MembershipOptionsContainer> */}
             </Page>
         </>
     );
