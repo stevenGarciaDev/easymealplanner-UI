@@ -92,7 +92,7 @@ const SideNavBar = () => {
   return (
     <Nav isSidebarOpen={isSidebarOpen}>
         <div>
-          <NavTitle>Easy Meal Planner</NavTitle>
+          <NavTitle>Easy Meal Planners</NavTitle>
         </div>
         <NavItemsContainer>
           <SectionLinksContainer>
@@ -121,25 +121,25 @@ const SideNavBar = () => {
                 </NavLink>
               </Link>
             </div>
-            <div>
+            {/* <div>
               <Link href="/grocery-list" passHref>
                 <NavLink>
                   <FaShoppingCart />
                   <NavText>Shopping List</NavText>
                 </NavLink>
               </Link>
-            </div>
+            </div> */}
           </SectionLinksContainer>
           <NavSectionTitle>Settings</NavSectionTitle>
           <SectionLinksContainer>
-            <div>
+            {/* <div>
               <Link href="/account" passHref>
                 <NavLink>
                   <MdAccountCircle />
                   <NavText>Account</NavText>
                 </NavLink>
               </Link>
-            </div>
+            </div> */}
             <div>
               <Link href="/login" passHref>
                 <NavLink onClick={handleLogout}>
