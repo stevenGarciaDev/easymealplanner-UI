@@ -111,9 +111,9 @@ const Login = () => {
                     <Button type="submit">I'm hungry!</Button>
                     <DemoButton onClick={handleDemoLogin} type="button">Login as Demo User</DemoButton>
                 </AuthForm>
-                <Link href='/reset-password'>
+                {/* <Link href='/reset-password'>
                     <ResetLink>Forgot username or password?</ResetLink>
-                </Link>
+                </Link> */}
             </Center>
         </>
     );

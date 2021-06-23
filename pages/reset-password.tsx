@@ -10,6 +10,7 @@ import {
  import { Button } from "../shared/styles/buttons";
 import styled from "styled-components";
 import { FaCheckCircle } from "react-icons/fa";
+import { requestToResetPassword } from "../services/userService";
 
 const PageCenter = styled(Center)`
     margin-top: 0;
@@ -32,8 +33,10 @@ const ResetPassword = () => {
     const [email, setEmail] = useState('');
     const [wasEmailSent, updateEmailStatus] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        await requestToResetPassword(email);
 
         updateEmailStatus(true);
     }
