@@ -55,7 +55,7 @@ const LinkText = styled.a`
 const TopNavbar = () => (
     <Nav>
         <Link href="/" passHref>
-            <LinkTitleText>Easy Meal Planner</LinkTitleText>
+            <LinkTitleText>Easy Meal Planners</LinkTitleText>
         </Link>
         <AuthLinksContainer>
             <Link href="/login">
