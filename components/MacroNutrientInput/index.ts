@@ -1,1 +1,1 @@
-export { default } from "./MacronutrientInput";
+export { default } from "./MacroNutrientInput";
