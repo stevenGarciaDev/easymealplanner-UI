@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { RecipeType } from "../shared/types/Recipe";
 
-const BASE_URL = process.env.API_URL || "http://localhost:8080/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/v1";
 
 export async function createRecipeAsync(recipeInfo: RecipeType, image: File, token: string) {
     const formData = new FormData();
