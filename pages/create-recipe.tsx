@@ -68,6 +68,7 @@ const CreateRecipe = () => {
     const [recipeForm, setRecipeForm] = useState({
         name: '',
         description: '',
+        defaultServingSize: 1,
         protein: 0,
         carbs: 0,
         fat: 0,
@@ -91,6 +92,10 @@ const CreateRecipe = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        if (name === 'defaultServingSize' && (value < 0 || value > 14))
+            return;
+
         setRecipeForm(
             { ...recipeForm, [name]: value }
         );
@@ -125,13 +130,14 @@ const CreateRecipe = () => {
     }
 
     const isValidForSubmission = () => {
-        const { name, description, protein, carbs, fat } = recipeForm;
+        const { name, description, defaultServingSize, protein, carbs, fat } = recipeForm;
 
         return (name.length > 0
             && description.length > 0
             && instructions.length > 0
             && ingredients.length > 0
             && image != null
+            && (defaultServingSize >= 1 && defaultServingSize <= 14)
             && (protein >= 0 && protein <= 200)
             && (carbs >= 0 && carbs <= 200)
             && (fat >= 0 && carbs <= 200))
@@ -142,6 +148,7 @@ const CreateRecipe = () => {
         setRecipeForm({
             name: '',
             description: '',
+            defaultServingSize: 1,
             currentInstruction: '',
             protein: 0,
             carbs: 0,
@@ -161,13 +168,14 @@ const CreateRecipe = () => {
             setErrorMessage('Invalid submission. Please ensure all fields are filled out.');
             return;
         }
-        const { name, description, protein, carbs, fat } = recipeForm;
+        const { name, description, defaultServingSize, protein, carbs, fat } = recipeForm;
 
         await createRecipeAsync({
             name,
             description,
             ingredients,
             instructions,
+            defaultServingSize,
             protein,
             carbs,
             fat
@@ -177,7 +185,7 @@ const CreateRecipe = () => {
         setSuccessMessage('Successfully created your new recipe');
     }
 
-    const { name, description, currentInstruction, protein, carbs, fat } = recipeForm;
+    const { name, description, defaultServingSize, currentInstruction, protein, carbs, fat } = recipeForm;
     return (
         <>
             <Head>
@@ -197,7 +205,11 @@ const CreateRecipe = () => {
                         <Input type="text" name="description" id="description" value={description} onChange={handleChange} />
                     </FormControl>
                     <FormControl>
-                        <Label>List the ingredients needed for one serving size.</Label>
+                        <Label htmlFor="defaultServingSize">Number of servings (between 1 and 14)</Label>
+                        <Input type="number" name="defaultServingSize" id="defaultServingSize" value={defaultServingSize} onChange={handleChange} />
+                    </FormControl>
+                    <FormControl>
+                        <Label>List the ingredients needed.</Label>
                         <IngredientInput
                             ingredients={ingredients}
                             addIngredient={addIngredient}
