@@ -19,15 +19,16 @@ const Preview = styled.div`
 
 const ChoosenImageContainer = styled(ImageContainer)`
     cursor: auto;
+    height: 80%;
 `;
 
 const ChoosenRecipeTextContainer = styled(TextContainer)`
+    border: 1px solid #ccc;
     display: flex;
 `;
 
 const ChooseButton = styled(Button)`
     background-color: white;
-    border: #111;
     border: 1px solid #111;
     color: #111;
 
@@ -68,11 +69,9 @@ const ChooseRecipePreview = ({
                     src={`https://easymealplanner.s3-us-west-1.amazonaws.com/${recipeId}/${imageLink}`}
                     alt={name}
                 />
-                <ChoosenRecipeTextContainer>
-                    <TextContent>
-                        {name}
-                    </TextContent>
-                </ChoosenRecipeTextContainer>
+                <TextContent>
+                    {name}
+                </TextContent>
             </Container>
             <ChooseButton type="button" onClick={handleClick}>Choose</ChooseButton>
         </Preview>
