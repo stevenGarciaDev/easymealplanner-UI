@@ -29,7 +29,7 @@ export const ImageContainer = styled.img`
 
 export const TextContainer = styled.div`
   border-top: 1px solid #ccc;
-  height: 75px;
+  height: 100px;
   width: 100%;
 `;
 
