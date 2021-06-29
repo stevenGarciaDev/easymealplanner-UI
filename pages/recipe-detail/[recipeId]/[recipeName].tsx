@@ -128,6 +128,7 @@ type RecipeInfoType = {
     id: number;
     name: string;
     description: string;
+    defaultServingSize: number;
     protein: number;
     carbs: number;
     fat: number;
@@ -142,11 +143,11 @@ const RecipeDetail = () => {
     const userId = useSelector(selectUserId);
     const token = useSelector(selectUserToken);
     const savedRecipeIds = useSelector(selectSavedRecipeIds);
-    const [servingSize, setServingSize] = useState(1);
     const [recipe, setRecipe] = useState<RecipeInfoType>({
         id: 0,
         name: '',
         description: '',
+        defaultServingSize: 1,
         protein: 0,
         carbs: 0,
         fat: 0,
@@ -155,12 +156,16 @@ const RecipeDetail = () => {
         recipeImages: '',
     });
     const [isSaved, setSavedStatus] = useState(false);
+    const [servingSize, setServingSize] = useState(recipe.defaultServingSize);
     const dispatch = useDispatch();
 
     useEffect(() => {
         // @ts-ignore
         getRecipeByName(recipeName, token)
-            .then((recipe) => setRecipe(recipe))
+            .then((recipe) => {
+                setRecipe(recipe);
+                setServingSize(recipe.defaultServingSize);
+            })
             .catch((error) => console.log("error", error));
 
         if (savedRecipeIds != null) {
@@ -169,6 +174,7 @@ const RecipeDetail = () => {
             const isRecipeSaved = (index === -1) ? false : true;
             setSavedStatus(isRecipeSaved);
         }
+        
     }, []);
 
     const updateServingSize = (updatedAmount: number) => {
@@ -203,7 +209,7 @@ const RecipeDetail = () => {
     const {
         id,
         name,
-        description,
+        defaultServingSize,
         protein,
         carbs,
         fat,
@@ -238,7 +244,7 @@ const RecipeDetail = () => {
                     <IngredientsList>
                         {recipeIngredients.length > 0 && recipeIngredients.map(r => (
                             <IngredientItem key={`${r.id}${r.ingredient.name}`}>
-                                <span>{fracy(r.quantity * servingSize)}</span>
+                                <span>{fracy((r.quantity / defaultServingSize) * servingSize)}</span>
                                 <span> {`${r.unit.toLowerCase()}`} of </span>
                                 <span>{r.ingredient.name}</span>
                             </IngredientItem>
