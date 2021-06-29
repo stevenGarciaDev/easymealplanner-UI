@@ -39,6 +39,7 @@ export const TextContent = styled.div`
   flex-direction: row;
   font-family: 'Amaranth', sans-serif;
   font-size: 25px;
+  height: 100px;
   justify-content: space-between;
   margin: 0px 10px;
   position: relative;
@@ -47,5 +48,8 @@ export const TextContent = styled.div`
 export const Icon = styled.div`
   color: #5f9f3d;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  justify-content: center;
 `;
